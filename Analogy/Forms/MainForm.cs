@@ -1466,7 +1466,7 @@ namespace Analogy.Forms
             localfolder.ImageOptions.LargeImage = images?.GetLargeOpenFolderImage(factoryId) ?? Resources.OpenFolder_32x32;
             localfolder.ItemClick += (sender, e) =>
             {
-#if NETCOREAPP3_1
+#if !NETFRAMEWORK
                 using (var folderBrowserDialog = new FolderBrowserDialog { ShowNewFolderButton = false })
                 {
                     folderBrowserDialog.SelectedPath = preDefinedFolderExist ? offlineAnalogy.InitialFolderFullPath : Environment.CurrentDirectory;

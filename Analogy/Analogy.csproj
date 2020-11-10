@@ -4,7 +4,7 @@
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<OutputType>WinExe</OutputType>
 		<NeutralLanguage>en-US</NeutralLanguage>
-		<TargetFrameworks>net48;net472;net471;netcoreapp3.1</TargetFrameworks>
+		<TargetFrameworks>net48;net5.0-windows;netcoreapp3.1</TargetFrameworks>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<IncludeSymbols>true</IncludeSymbols>
@@ -45,7 +45,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="App.config" Condition=" '$(TargetFramework)' == 'netcoreapp3.1' OR '$(TargetFramework)' == 'net5.0'" />
+		<None Remove="App.config" Condition=" '$(TargetFramework)' == 'netcoreapp3.1' OR '$(TargetFramework)' == 'net5.0-windowsnet5'" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Analogy.CommonUtilities" Version="1.4.1" />
@@ -117,7 +117,7 @@
 		</None>
 	</ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1'  OR '$(TargetFramework)' == 'net5.0'">
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1'  OR '$(TargetFramework)' == 'net5.0-windows'">
 		<Reference Include="DevExpress.BonusSkins.v19.1">
 			<HintPath>DevExpress\.net core\DevExpress.BonusSkins.v19.1.dll</HintPath>
 		</Reference>
@@ -733,7 +733,7 @@
 		</None>
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1' OR '$(TargetFramework)' == 'net5.0'">
+	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1' OR '$(TargetFramework)' == 'net5.0-windows'">
 		<PackageReference Include="Analogy.LogViewer.gRPC">
 			<Version>1.4.3.1</Version>
 			<PrivateAssets>all</PrivateAssets>

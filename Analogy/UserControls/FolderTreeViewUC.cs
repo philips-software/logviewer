@@ -52,7 +52,7 @@ namespace Analogy
 
         private async void btnOpenFolder_Click(object sender, EventArgs e)
         {
-#if NETCOREAPP3_1
+#if !NETFRAMEWORK
             var folderBrowserDialog1 = new FolderBrowserDialog();
             folderBrowserDialog1.SelectedPath = SelectedPath;
             if (DialogResult.OK == folderBrowserDialog1.ShowDialog(this))

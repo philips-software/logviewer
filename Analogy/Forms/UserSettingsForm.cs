@@ -704,7 +704,7 @@ namespace Analogy.Forms
 
         private void btnFolderProbingBrowse_Click(object sender, EventArgs e)
         {
-#if NETCOREAPP3_1
+#if !NETFRAMEWORK
             using (FolderBrowserDialog folderDlg = new FolderBrowserDialog
             {
                 ShowNewFolderButton = false
