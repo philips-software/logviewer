@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
+using Analogy.DataTypes;
 
-namespace Analogy
+namespace Analogy.Forms
 {
     public partial class XtraFormClientServer : DevExpress.XtraEditors.XtraForm
     {
@@ -13,9 +14,13 @@ namespace Analogy
         public void UpdateUI()
         {
             if (rBtnNetwork.Checked)
+            {
                 lblPath.Text = "Network Path:";
+            }
             else if (rBtnLocal.Checked)
+            {
                 lblPath.Text = "Local Path:";
+            }
         }
 
         private void radioButtons_CheckedChanged(object sender, EventArgs e)

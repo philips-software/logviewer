@@ -61,9 +61,15 @@ namespace Analogy
             get
             {
                 if (Left == null)
+                {
                     return Right.Value;
+                }
+
                 if (Right == null)
+                {
                     return Left.Value;
+                }
+
                 switch (Type)
                 {
                     case SearchType.And:
@@ -177,8 +183,13 @@ namespace Analogy
                         int j = i;
                         for (; j < tokens.Count; ++j)
 
+                        {
                             if (tokens[j].Type == SearchType.Rparentheses)
+                            {
                                 break;
+                            }
+                        }
+
                         var subexpression = tokens.Skip(i + 1).Take(j - i - 1).ToList();
                         var element = Parse(subexpression);
                         if (!haveLHS)

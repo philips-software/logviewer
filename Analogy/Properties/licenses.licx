@@ -1,12 +1,5 @@
-DevExpress.XtraEditors.TextEdit, DevExpress.XtraEditors.v19.1, Version=19.1.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
-DevExpress.XtraEditors.CheckEdit, DevExpress.XtraEditors.v19.1, Version=19.1.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
-DevExpress.XtraCharts.ChartControl, DevExpress.XtraCharts.v19.1.UI, Version=19.1.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
-DevExpress.XtraEditors.DateEdit, DevExpress.XtraEditors.v19.1, Version=19.1.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
-DevExpress.XtraBars.Docking.DockManager, DevExpress.XtraBars.v19.1, Version=19.1.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
-DevExpress.XtraEditors.LookUpEdit, DevExpress.XtraEditors.v19.1, Version=19.1.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
-DevExpress.XtraBars.Ribbon.RibbonControl, DevExpress.XtraBars.v19.1, Version=19.1.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
-DevExpress.XtraEditors.ComboBoxEdit, DevExpress.XtraEditors.v19.1, Version=19.1.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
-DevExpress.XtraEditors.PictureEdit, DevExpress.XtraEditors.v19.1, Version=19.1.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
-DevExpress.XtraBars.BarManager, DevExpress.XtraBars.v19.1, Version=19.1.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
-DevExpress.XtraGrid.GridControl, DevExpress.XtraGrid.v19.1, Version=19.1.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
-DevExpress.XtraBars.Docking2010.DocumentManager, DevExpress.XtraBars.v19.1, Version=19.1.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
+DevExpress.XtraEditors.CheckEdit, DevExpress.XtraEditors.v19.1, Version=19.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
+DevExpress.XtraEditors.TextEdit, DevExpress.XtraEditors.v19.1, Version=19.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
+DevExpress.XtraBars.BarManager, DevExpress.XtraBars.v19.1, Version=19.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
+DevExpress.XtraGrid.GridControl, DevExpress.XtraGrid.v19.1, Version=19.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
+DevExpress.XtraEditors.DateEdit, DevExpress.XtraEditors.v19.1, Version=19.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a

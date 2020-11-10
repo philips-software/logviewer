@@ -493,4 +493,25 @@
   <data name="json32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\json32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="OpenFile16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OpenFile16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OpenFile32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OpenFile32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OpenFolder_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OpenFolder_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OpenFolder_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OpenFolder_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RecentFolders16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RecentFolders16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RecentFolders32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RecentFolders32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DownloadSpeedMessage" xml:space="preserve">
+    <value>Downloading at {0}/s</value>
+  </data>
 </root>

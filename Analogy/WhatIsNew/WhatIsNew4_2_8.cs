@@ -8,6 +8,7 @@ using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Analogy.Forms;
 using DevExpress.XtraEditors;
 
 namespace Analogy.WhatIsNew

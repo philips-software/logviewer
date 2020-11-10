@@ -425,13 +425,10 @@ namespace Analogy.Properties {
             "me\":\"Regular Expression Parser\",\"FactoryId\":\"7da2570c-92aa-423f-bcd8-43bb877463f" +
             "6\",\"UserSettingFileAssociations\":[],\"Status\":1},{\"FactoryName\":\"Serilog Parser\"," +
             "\"FactoryId\":\"513a4393-425e-4054-92d4-6a816983e51f\",\"UserSettingFileAssociations\"" +
-            ":[],\"Status\":1},{\"FactoryName\":\"VS Activity Log Parser\",\"FactoryId\":\"a437ad53-0e" +
-            "cc-49a7-9fc3-b2f60ad007e2\",\"UserSettingFileAssociations\":[],\"Status\":2},{\"Factor" +
-            "yName\":\"WhatsApp Text Parser\",\"FactoryId\":\"4c062ac5-0349-4a60-a69f-4c0272d05ca7\"" +
-            ",\"UserSettingFileAssociations\":[],\"Status\":2},{\"FactoryName\":\"Windows Event logs" +
-            "\",\"FactoryId\":\"3999db4c-0e22-4795-92c1-61b05edb3f6c\",\"UserSettingFileAssociation" +
-            "s\":[],\"Status\":1},{\"FactoryName\":\"XML Text Parser\",\"FactoryId\":\"9652600e-1b14-48" +
-            "12-bcec-9a6194db9aea\",\"UserSettingFileAssociations\":[],\"Status\":1}]")]
+            ":[],\"Status\":1},{\"FactoryName\":\"Windows Event logs\",\"FactoryId\":\"3999db4c-0e22-4" +
+            "795-92c1-61b05edb3f6c\",\"UserSettingFileAssociations\":[],\"Status\":1},{\"FactoryNam" +
+            "e\":\"XML Text Parser\",\"FactoryId\":\"9652600e-1b14-4812-bcec-9a6194db9aea\",\"UserSet" +
+            "tingFileAssociations\":[],\"Status\":1}]")]
         public string FactoriesSettings {
             get {
                 return ((string)(this["FactoriesSettings"]));
@@ -799,6 +796,30 @@ namespace Analogy.Properties {
             }
             set {
                 this["FontSettings"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int RibbonStyle {
+            get {
+                return ((int)(this["RibbonStyle"]));
+            }
+            set {
+                this["RibbonStyle"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableFirstChanceException {
+            get {
+                return ((bool)(this["EnableFirstChanceException"]));
+            }
+            set {
+                this["EnableFirstChanceException"] = value;
             }
         }
     }

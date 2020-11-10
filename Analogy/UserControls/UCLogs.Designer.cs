@@ -838,12 +838,12 @@ namespace Analogy
             this.barSubItemSaveLog.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barSubItemSaveLog.ImageOptions.Image")));
             this.barSubItemSaveLog.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barSubItemSaveLog.ImageOptions.LargeImage")));
             this.barSubItemSaveLog.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.bBtnSaveEntireLog),
-            new DevExpress.XtraBars.LinkPersistInfo(this.bBtnSaveLog),
-            new DevExpress.XtraBars.LinkPersistInfo(this.bBtnSaveCurrentSelectionCustomFormat),
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemSaveEntireInAnalogy),
             new DevExpress.XtraBars.LinkPersistInfo(this.bbtnSaveViewAgnostic),
-            new DevExpress.XtraBars.LinkPersistInfo(this.bBtnSaveCurrentSelectionAnalogyFormat)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.bBtnSaveCurrentSelectionAnalogyFormat),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bBtnSaveEntireLog),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bBtnSaveLog),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bBtnSaveCurrentSelectionCustomFormat)});
             this.barSubItemSaveLog.Name = "barSubItemSaveLog";
             this.barSubItemSaveLog.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
             // 
@@ -1045,6 +1045,8 @@ namespace Analogy
             this.bdcTopFiltering.Name = "bdcTopFiltering";
             this.bdcTopFiltering.Size = new System.Drawing.Size(1846, 38);
             this.bdcTopFiltering.Text = "standaloneBarDockControl1";
+            this.bdcTopFiltering.AutoSize = true;
+
             // 
             // BbarMainMenu
             // 
@@ -1099,6 +1101,7 @@ namespace Analogy
             this.bdcMessageBottom.Name = "bdcMessageBottom";
             this.bdcMessageBottom.Size = new System.Drawing.Size(1839, 37);
             this.bdcMessageBottom.Text = "standaloneBarDockControl2";
+            this.bdcMessageBottom.AutoSize = true;
             // 
             // barBookmark
             // 
@@ -1182,6 +1185,7 @@ namespace Analogy
             this.bdcBookmarks.Name = "bdcBookmarks";
             this.bdcBookmarks.Size = new System.Drawing.Size(1839, 32);
             this.bdcBookmarks.Text = "standaloneBarDockControl1";
+            this.bdcBookmarks.AutoSize = true;
             // 
             // barGroup
             // 
@@ -1205,6 +1209,7 @@ namespace Analogy
             this.standaloneBarDockControlLeft.Name = "standaloneBarDockControlLeft";
             this.standaloneBarDockControlLeft.Size = new System.Drawing.Size(0, 39);
             this.standaloneBarDockControlLeft.Text = "standaloneBarDockControl1";
+            this.standaloneBarDockControlLeft.AutoSize = true;
             // 
             // barDockControlTop
             // 

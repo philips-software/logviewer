@@ -1,6 +1,6 @@
 ﻿using Analogy.Interfaces;
 
-namespace Analogy.Tools
+namespace Analogy.Forms
 {
     public partial class FileComparerForm : DevExpress.XtraEditors.XtraForm
     {

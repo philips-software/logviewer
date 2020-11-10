@@ -1,4 +1,4 @@
-﻿namespace Analogy
+﻿namespace Analogy.Forms
 {
     partial class XtraFormClientServer
     {

@@ -481,6 +481,15 @@ namespace Analogy.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Downloading at {0}/s.
+        /// </summary>
+        internal static string DownloadSpeedMessage {
+            get {
+                return ResourceManager.GetString("DownloadSpeedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap EditComment_16x16 {
@@ -833,6 +842,46 @@ namespace Analogy.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap OpenFile16x16 {
+            get {
+                object obj = ResourceManager.GetObject("OpenFile16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap OpenFile32x32 {
+            get {
+                object obj = ResourceManager.GetObject("OpenFile32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap OpenFolder_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("OpenFolder_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap OpenFolder_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("OpenFolder_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap OperatingSystem_16x16 {
             get {
                 object obj = ResourceManager.GetObject("OperatingSystem_16x16", resourceCulture);
@@ -926,6 +975,26 @@ namespace Analogy.Properties {
         internal static System.Drawing.Bitmap Radio_32x32 {
             get {
                 object obj = ResourceManager.GetObject("Radio_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RecentFolders16x16 {
+            get {
+                object obj = ResourceManager.GetObject("RecentFolders16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RecentFolders32x32 {
+            get {
+                object obj = ResourceManager.GetObject("RecentFolders32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

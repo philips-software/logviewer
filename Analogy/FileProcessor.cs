@@ -27,8 +27,9 @@ namespace Analogy
         {
             DataWindow = dataWindow;
             if (dataWindow is UCLogs logs)
+            {
                 LogWindow = logs;
-
+            }
         }
 
         public async Task<IEnumerable<AnalogyLogMessage>> Process(IAnalogyOfflineDataProvider fileDataProvider,
@@ -38,7 +39,11 @@ namespace Analogy
 
 
             FileName = filename;
-            if (string.IsNullOrEmpty(FileName)) return new List<AnalogyLogMessage>();
+            if (string.IsNullOrEmpty(FileName))
+            {
+                return new List<AnalogyLogMessage>();
+            }
+
             if (!isReload && !DataWindow.ForceNoFileCaching &&
                 FileProcessingManager.Instance.AlreadyProcessed(FileName) &&
                 Settings.EnableFileCaching) //get it from the cache
@@ -46,7 +51,10 @@ namespace Analogy
                 var cachedMessages = FileProcessingManager.Instance.GetMessages(FileName);
                 DataWindow.AppendMessages(cachedMessages, Utils.GetFileNameAsDataSource(FileName));
                 if (LogWindow != null)
+                {
                     Interlocked.Decrement(ref LogWindow.fileLoadingCount);
+                }
+
                 return cachedMessages;
 
             }
@@ -61,7 +69,10 @@ namespace Analogy
                 var cachedMessages = FileProcessingManager.Instance.GetMessages(FileName);
                 DataWindow.AppendMessages(cachedMessages, Utils.GetFileNameAsDataSource(FileName));
                 if (LogWindow != null)
+                {
                     Interlocked.Decrement(ref LogWindow.fileLoadingCount);
+                }
+
                 return cachedMessages;
 
             }
@@ -75,16 +86,24 @@ namespace Analogy
                     FileProcessingManager.Instance.AddProcessingFile(FileName);
 
                     if (!DataWindow.DoNotAddToRecentHistory)
+                    {
                         Settings.AddToRecentFiles(fileDataProvider.Id, FileName);
+                    }
 
                     var messages = (await fileDataProvider.Process(filename, token, DataWindow).ConfigureAwait(false))
                         .ToList();
                     FileProcessingManager.Instance.DoneProcessingFile(messages.ToList(), FileName);
                     if (messages.Any())
+                    {
                         lastNewestMessage = messages.Select(m => m.Date).Max();
+                    }
+
                     OnFileReadingFinished?.Invoke(this, EventArgs.Empty);
                     if (LogWindow != null)
+                    {
                         Interlocked.Decrement(ref LogWindow.fileLoadingCount);
+                    }
+
                     return messages;
                 }
                 else //cannot open natively. is it compressed file?
@@ -142,9 +161,13 @@ namespace Analogy
             string extractPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             Directory.CreateDirectory(extractPath);
             if (zipPath.EndsWith("zip", StringComparison.InvariantCultureIgnoreCase))
+            {
                 UnzipZipFileIntoTempFolder(zipPath, extractPath, fileDataProvider);
+            }
             else if (zipPath.EndsWith("gz", StringComparison.InvariantCultureIgnoreCase))
+            {
                 UnzipGzFileIntoTempFolder(zipPath, extractPath);
+            }
             else
             {
                 AnalogyLogger.Instance.LogError(nameof(UnzipFilesIntoTempFolder), $"Unsupported file: {zipPath}.");

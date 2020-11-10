@@ -215,6 +215,7 @@ namespace Analogy
             this.standaloneBarDockControl1.Name = "standaloneBarDockControl1";
             this.standaloneBarDockControl1.Size = new System.Drawing.Size(392, 30);
             this.standaloneBarDockControl1.Text = "standaloneBarDockControl1";
+            this.standaloneBarDockControl1.AutoSize = true;
             // 
             // barManager1
             // 

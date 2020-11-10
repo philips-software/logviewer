@@ -32,7 +32,11 @@ namespace Analogy.Tools
 
         private void JsonViewerForm_Load(object sender, EventArgs e)
         {
-            if (DesignMode) return;
+            if (DesignMode)
+            {
+                return;
+            }
+
             Icon = settings.GetIcon();
             _jsonTreeView = new JsonTreeView();
             splitContainerControl1.Panel2.Controls.Add(_jsonTreeView);
@@ -42,7 +46,9 @@ namespace Analogy.Tools
                 memoEdit1.Text = message.Text;
                 var json = ExtractJsonObject(message.Text);
                 if (!string.IsNullOrEmpty(json))
+                {
                     _jsonTreeView.ShowJson(json);
+                }
             }
 
 

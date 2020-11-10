@@ -18,7 +18,11 @@ namespace Analogy
         }
         private async void BookmarkLog_Load(object sender, EventArgs e)
         {
-            if (DesignMode) return;
+            if (DesignMode)
+            {
+                return;
+            }
+
             ucLogs1.btswitchRefreshLog.Visibility = BarItemVisibility.Never;
             ucLogs1.btsAutoScrollToBottom.Visibility = BarItemVisibility.Never;
             ucLogs1.SetBookmarkMode();

@@ -51,7 +51,10 @@ namespace Analogy
         public async Task<List<AnalogyLogMessage>> GetMessages()
         {
             if (fileLoaded || !File.Exists(BookmarkFileName))
+            {
                 return Messages;
+            }
+
             //todo: which format;
             try
             {
@@ -90,10 +93,15 @@ namespace Analogy
 
         public void SaveFile()
         {
-            if (!ContentChanged) return;
+            if (!ContentChanged)
+            {
+                return;
+            }
+
             if (!Messages.Any())
             {
                 if (File.Exists(BookmarkFileName))
+                {
                     try
                     {
                         File.Delete(BookmarkFileName);
@@ -102,6 +110,7 @@ namespace Analogy
                     {
                         AnalogyLogManager.Instance.LogError("Error deleting file: " + e, nameof(BookmarkPersistManager));
                     }
+                }
             }
             else
             {

@@ -1,4 +1,4 @@
-﻿namespace Analogy
+﻿namespace Analogy.Forms
 {
     public partial class ToolbarFormMain : DevExpress.XtraEditors.XtraForm
     {

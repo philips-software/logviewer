@@ -3,8 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Analogy.Types;
-using DevExpress.Web.Office.Internal;
+using Analogy.DataTypes;
 using DevExpress.XtraEditors.Controls;
 
 namespace Analogy.Forms
@@ -25,12 +24,20 @@ namespace Analogy.Forms
 
         private void FirstTimeRunForm_Load(object sender, EventArgs e)
         {
-            if (DesignMode) return;
+            if (DesignMode)
+            {
+                return;
+            }
+
             Icon = UserSettingsManager.UserSettings.GetIcon();
             foreach (var setting in Settings.FactoriesOrder)
             {
                 FactorySettings factory = Settings.GetFactorySetting(setting);
-                if (factory == null) continue;
+                if (factory == null)
+                {
+                    continue;
+                }
+
                 var factoryContainer = FactoriesManager.Instance.FactoryContainer(factory.FactoryId);
                 string about = (factoryContainer?.Factory != null) ? factoryContainer.Factory.About : "Disabled";
                 var image = FactoriesManager.Instance.GetLargeImage(factory.FactoryId);

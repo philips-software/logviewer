@@ -1,13 +1,13 @@
-﻿using Analogy.Managers;
-using Analogy.Properties;
-using DevExpress.XtraEditors;
-using DevExpress.XtraTab;
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows.Forms;
 using Analogy.Interfaces;
+using Analogy.Managers;
+using Analogy.Properties;
+using DevExpress.XtraEditors;
+using DevExpress.XtraTab;
 
-namespace Analogy
+namespace Analogy.Forms
 {
 
     public partial class UserSettingsDataProvidersForm : XtraForm
@@ -44,7 +44,9 @@ namespace Analogy
         {
             var tab = tabControlMain.TabPages.SingleOrDefault(t => t.Name == tabName);
             if (tab != null)
+            {
                 _initialSelection = tab.TabIndex;
+            }
         }
 
         private void LoadSettings()
@@ -74,9 +76,9 @@ namespace Analogy
             LoadSettings();
 
             if (_initialSelection >= 0)
+            {
                 tabControlMain.SelectedTabPageIndex = _initialSelection;
-
-
+            }
         }
 
         private void UserSettingsDataProvidersForm_FormClosing(object sender, FormClosingEventArgs e)

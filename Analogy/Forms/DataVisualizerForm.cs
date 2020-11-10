@@ -1,9 +1,9 @@
-﻿using Analogy.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Analogy.Interfaces;
 
-namespace Analogy
+namespace Analogy.Forms
 {
     public partial class DataVisualizerForm : DevExpress.XtraEditors.XtraForm
     {

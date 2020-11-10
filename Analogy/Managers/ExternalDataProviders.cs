@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Analogy.Interfaces;
+using Analogy.Interfaces.Factories;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
-using Analogy.Interfaces;
-using Analogy.Interfaces.Factories;
-using Analogy.Types;
+using Analogy.DataTypes;
+using Analogy.Interfaces.DataTypes;
 
 namespace Analogy.Managers
 {
@@ -25,7 +25,7 @@ namespace Analogy.Managers
             DataProvidersImages = new List<(Guid id, IAnalogyImages images)>();
             Factories = new List<FactoryContainer>();
             var analogyAssemblies = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory,
-                @"*Analogy.LogViewer.*.dll", SearchOption.TopDirectoryOnly).ToList();
+                @"*Analogy.LogViewer.*.dll", SearchOption.AllDirectories).ToList();
             if (UserSettingsManager.UserSettings.AdditionalProbingLocations != null)
             {
                 foreach (string folder in UserSettingsManager.UserSettings.AdditionalProbingLocations)
@@ -33,32 +33,55 @@ namespace Analogy.Managers
                     try
                     {
                         if (Directory.Exists(folder))
+                        {
                             analogyAssemblies.AddRange(Directory.EnumerateFiles(folder, @"*Analogy.LogViewer.*.dll",
                                 SearchOption.TopDirectoryOnly).ToList());
+                        }
                     }
                     catch (Exception e)
                     {
-                        AnalogyLogger.Instance.LogException($"Error probing folder {folder}. Error: {e.Message}", e, nameof(ExternalDataProviders));
+                        AnalogyLogger.Instance.LogException($"Error probing folder {folder}. Error: {e.Message}", e,
+                            nameof(ExternalDataProviders));
                     }
                 }
 
 
             }
+
+            var typesToLoad = new List<(Assembly assembly, string fileName, List<Type> types)>();
             foreach (string aFile in analogyAssemblies)
             {
-                if (aFile.Contains("Analogy.LogViewer.Template")) continue;
+                if (aFile.Contains("Analogy.LogViewer.Template"))
+                {
+                    continue;
+                }
+
                 try
                 {
                     string fileName = Path.GetFullPath(aFile);
                     string path = Path.GetDirectoryName(aFile);
                     Assembly assembly = Assembly.LoadFrom(fileName);
                     if (!FactoriesManager.Instance.ProbingPaths.Contains(path))
-                        FactoriesManager.Instance.ProbingPaths.Add(path);
-                    var types = assembly.GetTypes().Where(t=>!t.IsAbstract).ToList();
-
-                    foreach (var f in types.Where(aType => aType.GetInterface(nameof(IAnalogyFactory)) != null))
                     {
-                        var factory = Activator.CreateInstance(f) as IAnalogyFactory;
+                        FactoriesManager.Instance.ProbingPaths.Add(path);
+                    }
+
+                    var types = assembly.GetTypes().Where(t => !t.IsAbstract).ToList();
+                    typesToLoad.Add((assembly, aFile, types));
+                }
+                catch (Exception e)
+                {
+                    AnalogyLogManager.Instance.LogError($"{aFile}: Error during data providers: {e} ({e.InnerException}. {aFile})", nameof(FactoriesManager));
+                }
+            }
+
+            foreach ((Assembly assembly, string fileName, List<Type> types) in typesToLoad)
+            {
+                foreach (var f in types.Where(aType => aType.GetInterface(nameof(IAnalogyFactory)) != null))
+                {
+                    try
+                    {
+                        var factory = (Activator.CreateInstance(f) as IAnalogyFactory)!;
                         var setting = UserSettingsManager.UserSettings.GetOrAddFactorySetting(factory);
                         setting.FactoryName = factory.Title;
                         FactoryContainer fc = new FactoryContainer(assembly, fileName, factory, setting);
@@ -68,78 +91,118 @@ namespace Analogy.Managers
                                 fa.Factory.FactoryId == factory.FactoryId));
                         }
                         Factories.Add(fc);
+                    }
+                    catch (Exception e)
+                    {
+                        AnalogyLogManager.Instance.LogError($"{fileName}: Error during data providers: {e} ({e.InnerException}. {fileName})", nameof(FactoriesManager));
+                    }
+                }
+            }
+            foreach ((Assembly assembly, string fileName, List<Type> types) in typesToLoad)
+            {
+                foreach (var img in types.Where(aType => aType.GetInterface(nameof(IAnalogyImages)) != null))
+                {
+                    try
+                    {
+                        var images = (Activator.CreateInstance(img) as IAnalogyImages)!;
+                        var factory = Factories.FirstOrDefault(f => f.Assembly == assembly);
+                        factory?.AddImages(images);
 
                     }
-               
-                    foreach (var t in types.Where(aType => aType.GetInterface(nameof(IAnalogyImages)) != null))
+                    catch (Exception e)
                     {
-                        var images = Activator.CreateInstance(t) as IAnalogyImages;
-                        var factory = Factories.First(f => f.Assembly == assembly);
-                        factory.AddImages(images);
-
+                        AnalogyLogManager.Instance.LogError($"{fileName}: Error during data providers: {e} ({e.InnerException}. {fileName})", nameof(FactoriesManager));
                     }
+                }
 
-                    foreach (Type aType in types.Where(aType =>
-                        aType.GetInterface(nameof(IAnalogyDataProvidersFactory)) != null))
+                foreach (Type dpf in types.Where(aType =>
+                    aType.GetInterface(nameof(IAnalogyDataProvidersFactory)) != null))
+                {
+                    try
                     {
-
-                        var dataProviderFactory = Activator.CreateInstance(aType) as IAnalogyDataProvidersFactory;
+                        var dataProviderFactory = (Activator.CreateInstance(dpf) as IAnalogyDataProvidersFactory)!;
                         var factory = Factories.First(f => f.Factory.FactoryId == dataProviderFactory?.FactoryId);
                         factory.AddDataProviderFactory(dataProviderFactory);
                     }
+                    catch (Exception e)
+                    {
+                        AnalogyLogManager.Instance.LogError($"{fileName}: Error during data providers: {e} ({e.InnerException}. {fileName})", nameof(FactoriesManager));
+                    }
 
-                    foreach (Type aType in types.Where(aType =>
+                    foreach (Type isettings in types.Where(aType =>
                         aType.GetInterface(nameof(IAnalogyDataProviderSettings)) != null))
                     {
-
-                        var settings = Activator.CreateInstance(aType) as IAnalogyDataProviderSettings;
-                        var factory = Factories.First(f => f.Factory.FactoryId == settings?.FactoryId);
-                        factory.AddDataProvidersSettings(settings);
+                        try
+                        {
+                            var settings = (Activator.CreateInstance(isettings) as IAnalogyDataProviderSettings)!;
+                            var factory = Factories.First(f => f.Factory.FactoryId == settings?.FactoryId);
+                            factory.AddDataProvidersSettings(settings);
+                        }
+                        catch (Exception e)
+                        {
+                            AnalogyLogManager.Instance.LogError($"{fileName}: Error during data providers: {e} ({e.InnerException}. {fileName})", nameof(FactoriesManager));
+                        }
                     }
 
-                    foreach (Type aType in types.Where(aType =>
-                        aType.GetInterface(nameof(IAnalogyCustomActionsFactory)) != null))
+                    foreach (Type iaction in types.Where(aType => aType.GetInterface(nameof(IAnalogyCustomActionsFactory)) != null))
                     {
-
-                        var custom = Activator.CreateInstance(aType) as IAnalogyCustomActionsFactory;
-                        var factory = Factories.First(f => f.Factory.FactoryId == custom?.FactoryId);
-                        factory.AddCustomActionFactory(custom);
+                        try
+                        {
+                            var custom = (Activator.CreateInstance(iaction) as IAnalogyCustomActionsFactory)!;
+                            var factory = Factories.First(f => f.Factory.FactoryId == custom?.FactoryId);
+                            factory.AddCustomActionFactory(custom);
+                        }
+                        catch (Exception e)
+                        {
+                            AnalogyLogManager.Instance.LogError($"{fileName}: Error during data providers: {e} ({e.InnerException}. {fileName})", nameof(FactoriesManager));
+                        }
                     }
 
-                    foreach (Type aType in types.Where(aType =>
-                        aType.GetInterface(nameof(IAnalogyShareableFactory)) != null))
+                    foreach (Type ishare in types.Where(aType => aType.GetInterface(nameof(IAnalogyShareableFactory)) != null))
                     {
-
-                        var share = Activator.CreateInstance(aType) as IAnalogyShareableFactory;
-                        var factory = Factories.First(f => f.Factory.FactoryId == share?.FactoryId);
-                        factory.AddShareableFactory(share);
+                        try
+                        {
+                            var share = (Activator.CreateInstance(ishare) as IAnalogyShareableFactory)!;
+                            var factory = Factories.First(f => f.Factory.FactoryId == share?.FactoryId);
+                            factory.AddShareableFactory(share);
+                        }
+                        catch (Exception e)
+                        {
+                            AnalogyLogManager.Instance.LogError($"{fileName}: Error during data providers: {e} ({e.InnerException}. {fileName})", nameof(FactoriesManager));
+                        }
                     }
-                    foreach (Type aType in types.Where(aType =>
-                        aType.GetInterface(nameof(IAnalogyExtensionsFactory)) != null))
-                    {
 
-                        var extension = Activator.CreateInstance(aType) as IAnalogyExtensionsFactory;
-                        var factory = Factories.First(f => f.Factory.FactoryId == extension?.FactoryId);
-                        factory.AddExtensionFactory(extension);
+                    foreach (Type aType in types.Where(aType => aType.GetInterface(nameof(IAnalogyExtensionsFactory)) != null))
+                    {
+                        try
+                        {
+                            var extension = (Activator.CreateInstance(aType) as IAnalogyExtensionsFactory)!;
+                            var factory = Factories.First(f => f.Factory.FactoryId == extension?.FactoryId);
+                            factory.AddExtensionFactory(extension);
+                        }
+                        catch (Exception e)
+                        {
+                            AnalogyLogManager.Instance.LogError($"{fileName}: Error during data providers: {e} ({e.InnerException}. {fileName})", nameof(FactoriesManager));
+                        }
+                    }
+
+                    foreach (Type aType in types.Where(aType => aType.GetInterface(nameof(IAnalogyDownloadInformation)) != null))
+                    {
+                        try
+                        {
+                            var downloadInfo = (Activator.CreateInstance(aType) as IAnalogyDownloadInformation)!;
+                            var factory = Factories.First(f => f.Factory.FactoryId == downloadInfo?.FactoryId);
+                            factory.AddDownloadInformation(downloadInfo);
+                        }
+                        catch (Exception e)
+                        {
+                            AnalogyLogManager.Instance.LogError($"{fileName}: Error during data providers: {e} ({e.InnerException}. {fileName})", nameof(FactoriesManager));
+                        }
                     }
                 }
-                catch (ReflectionTypeLoadException ex)
-                {
-                    AnalogyLogManager.Instance.LogError(
-                        $"{aFile}: Error during data providers: {string.Join(",", ex.LoaderExceptions.ToList())}. {aFile})",
-                        nameof(FactoriesManager));
-                }
-                catch (Exception e)
-                {
-                    AnalogyLogManager.Instance.LogError(
-                        $"{aFile}: Error during data providers: {e} ({e.InnerException}. {aFile})",
-                        nameof(FactoriesManager));
-                }
-
             }
-
             Factories.RemoveAll(f => f.FactorySetting.Status == DataProviderFactoryStatus.Disabled);
-        }
 
+        }
     }
 }

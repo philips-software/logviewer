@@ -1,4 +1,4 @@
-﻿namespace Analogy
+﻿namespace Analogy.Forms
 {
     partial class AnalogyAboutBox
     {
@@ -201,12 +201,14 @@
             // 
             // btnOK
             // 
+            this.btnOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnOK.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnOK.Location = new System.Drawing.Point(973, 367);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(66, 39);
             this.btnOK.TabIndex = 26;
             this.btnOK.Text = "OK";
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // xtraTabControl1
             // 
@@ -543,6 +545,7 @@
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnOK;
             this.ClientSize = new System.Drawing.Size(1069, 465);
             this.Controls.Add(this.xtraTabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

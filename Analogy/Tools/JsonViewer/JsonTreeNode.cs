@@ -10,13 +10,13 @@ namespace Analogy.Tools.JsonViewer
 {
     class JsonTreeNode : TreeNode
     {
-        public JsonNodeType NodeType { get; set; }
+        public JsonNodeType NodeType { get; }
 
         public string TextWhenSelected { get; }
 
         public bool IsExpandable => NodeType == JsonNodeType.Object || NodeType == JsonNodeType.Array;
 
-        public JsonTreeNode(JsonNodeType nodeType, string text, string textWhenSelected = null)
+        public JsonTreeNode(JsonNodeType nodeType, string text, string? textWhenSelected = null)
         {
             NodeType = nodeType;
             Text = text;

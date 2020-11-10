@@ -51,8 +51,11 @@ namespace Analogy
        
             xtraTabPageAdditionalInformation.PageVisible = Message.AdditionalInformation != null && Message.AdditionalInformation.Any();
             if (Message.AdditionalInformation != null)
+            {
                 memoAdditionalInformation.Text = string.Join(Environment.NewLine,
                     Message.AdditionalInformation.Select(kv => $"{kv.Key}:{kv.Value}"));
+            }
+
             memoText.Text = Message.Text;
             txtbMachineName.Text = Message.MachineName;
             txtID.Text = Message.Id.ToString();
@@ -77,13 +80,21 @@ namespace Analogy
 
         private void LoadPreviousMessage()
         {
-            if (Messages.First() == Message) return;
+            if (Messages.First() == Message)
+            {
+                return;
+            }
+
             Message = Messages[Messages.IndexOf(Message) - 1];
             LoadMessage();
         }
         private void LoadNextMessage()
         {
-            if (Messages.Last() == Message) return;
+            if (Messages.Last() == Message)
+            {
+                return;
+            }
+
             Message = Messages[Messages.IndexOf(Message) + 1];
             LoadMessage();
         }

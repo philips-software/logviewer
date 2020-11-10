@@ -129,7 +129,11 @@ namespace Analogy.Tools.JsonViewer
 
         private void LoadObject(JObject obj, JsonTreeNode node)
         {
-            if (obj is null) return;
+            if (obj is null)
+            {
+                return;
+            }
+
             foreach (var item in obj)
             {
                 AddNode(node, item.Key, item.Value);

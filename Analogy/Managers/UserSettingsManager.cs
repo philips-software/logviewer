@@ -1,10 +1,11 @@
-﻿using Analogy.DataProviders;
+﻿using Analogy.CommonUtilities.Web;
+using Analogy.DataTypes;
 using Analogy.Interfaces;
 using Analogy.Interfaces.Factories;
 using Analogy.Managers;
 using Analogy.Properties;
-using Analogy.Types;
 using DevExpress.LookAndFeel;
+using DevExpress.XtraBars.Ribbon;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,11 @@ namespace Analogy
 
         private static readonly Lazy<UserSettingsManager> _instance =
             new Lazy<UserSettingsManager>(() => new UserSettingsManager());
+
+        private CommandLayout _ribbonStyle;
+        private bool _enableFirstChanceException;
+        public event EventHandler<bool> OnEnableFirstChanceExceptionChanged;
+        public event EventHandler<CommandLayout> OnRibbonControlStyleChanged;
 
         public string ApplicationSkinName { get; set; }
         public static UserSettingsManager UserSettings { get; set; } = _instance.Value;
@@ -80,8 +86,8 @@ namespace Analogy
         public string DateTimePattern { get; set; }
         public UpdateMode UpdateMode { get; set; }
         public DateTime LastUpdate { get; set; }
-        public GithubReleaseEntry LastVersionChecked { get; set; }
-        public string GitHubToken { get; } = Environment.GetEnvironmentVariable("AnalogyGitHub_Token");
+        public GithubObjects.GithubReleaseEntry? LastVersionChecked { get; set; }
+        public string GitHubToken { get; } = Environment.GetEnvironmentVariable("AnalogyGitHub_Token") ?? string.Empty;
         public bool MinimizedToTrayBar { get; set; }
         public bool CheckAdditionalInformation { get; set; }
 
@@ -97,6 +103,35 @@ namespace Analogy
         public LogLevelSelectionType LogLevelSelection { get; set; }
         public bool ShowWhatIsNewAtStartup { get; set; }
         public FontSettings FontSettings { get; set; }
+
+        public bool EnableFirstChanceException
+        {
+            get => _enableFirstChanceException;
+            set
+            {
+                if (_enableFirstChanceException != value)
+                {
+                    _enableFirstChanceException = value;
+                    OnEnableFirstChanceExceptionChanged?.Invoke(this, value);
+                }
+            }
+        }
+
+        public List<DataProviderInformation> SupportedDataProviders { get; set; }
+        public CommandLayout RibbonStyle
+        {
+            get => _ribbonStyle;
+            set
+            {
+                if (_ribbonStyle != value)
+                {
+                    _ribbonStyle = value;
+                    OnRibbonControlStyleChanged?.Invoke(this, value);
+
+                }
+            }
+        }
+
         public UserSettingsManager()
         {
             Load();
@@ -104,6 +139,33 @@ namespace Analogy
 
         public void Load()
         {
+            SupportedDataProviders = new List<DataProviderInformation>();
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.Serilog", "Analogy.LogViewer.Serilog.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.Serilog"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.RabbitMq", "Analogy.LogViewer.RabbitMq.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.RabbitMq"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.RSSReader", "Analogy.LogViewer.RSSReader.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.RSSReader"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.VisualStudioLogParser", "Analogy.LogViewer.VisualStudioLogParser.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.VisualStudioLogParser"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.WhatsApp", "Analogy.LogViewer.WhatsApp.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.WhatsApp"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.XMLParser", "Analogy.LogViewer.XMLParser.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.XMLParser"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.WCF", "Analogy.LogViewer.WCF.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.WCF"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.Philips.ICAP", "Analogy.LogViewer.Philips.ICAP.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.Philips.ICAP"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.Philips.CT", "Analogy.LogViewer.Philips.CT.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.Philips.CT"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.JsonParser", "Analogy.LogViewer.JsonParser.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.JsonParser"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.Log4jXml", "Analogy.LogViewer.Log4jXml.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.Log4jXml"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.KafkaProvider ", "Analogy.LogViewer.KafkaProvider .dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.KafkaProvider"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.IISLogsProvider", "Analogy.LogViewer.IISLogsProvider.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.IISLogsProvider"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.Github", "Analogy.LogViewer.Github.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.Github"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.GitHistory", "Analogy.LogViewer.GitHistory.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.GitHistory"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.Affirmations", "Analogy.LogViewer.Affirmations.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.Affirmations"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.Log4Net", "Analogy.LogViewer.Log4Net.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.Log4Net"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.Nlog", "Analogy.LogViewer.NLogProvider.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.Nlog"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.PlainTextParser", "Analogy.LogViewer.PlainTextParser.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.PlainTextParser"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.PowerToys", "Analogy.LogViewer.PowerToys.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.PowerToys"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.RegexParser", "Analogy.LogViewer.RegexParser.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.RegexParser"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.gRPC", "Analogy.LogViewer.gRPC.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.gRPC"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.WindowsEventLogs", "Analogy.LogViewer.WindowsEventLogs.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.WindowsEventLogs"));
+            SupportedDataProviders.Add(new DataProviderInformation("Analogy.LogViewer.Example", "Analogy.LogViewer.Example.dll", "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer.Example"));
+
+
             EnableCompressedArchives = true;
             AnalogyInternalLogPeriod = 5;
             if (Settings.Default.UpgradeRequired)
@@ -111,6 +173,7 @@ namespace Analogy
                 Settings.Default.Upgrade();
                 Settings.Default.UpgradeRequired = false;
                 Settings.Default.Save();
+                ShowWhatIsNewAtStartup = true;
             }
 
             DateTimePattern = !string.IsNullOrEmpty(Settings.Default.DateTimePattern)
@@ -164,7 +227,7 @@ namespace Analogy
             AdditionalProbingLocations = ParseSettings<List<string>>(Settings.Default.AdditionalProbingLocations);
             SingleInstance = Settings.Default.SingleInstance;
             LastUpdate = Settings.Default.LastUpdate;
-            LastVersionChecked = ParseSettings<GithubReleaseEntry>(Settings.Default.LastVersionChecked);
+            LastVersionChecked = ParseSettings<GithubObjects.GithubReleaseEntry>(Settings.Default.LastVersionChecked);
             switch (Settings.Default.UpdateMode)
             {
                 case 0:
@@ -204,6 +267,8 @@ namespace Analogy
             ShowMessageDetails = Settings.Default.ShowMessageDetails;
             ShowWhatIsNewAtStartup = Settings.Default.ShowWhatIsNewAtStartup;
             FontSettings = ParseSettings<FontSettings>(Settings.Default.FontSettings);
+            RibbonStyle = (CommandLayout)Settings.Default.RibbonStyle;
+            EnableFirstChanceException = Settings.Default.EnableFirstChanceException;
         }
 
         private T ParseSettings<T>(string data) where T : new()
@@ -288,6 +353,8 @@ namespace Analogy
             Settings.Default.LogLevelSelection = LogLevelSelection.ToString();
             Settings.Default.ShowWhatIsNewAtStartup = ShowWhatIsNewAtStartup;
             Settings.Default.FontSettings = JsonConvert.SerializeObject(FontSettings);
+            Settings.Default.RibbonStyle = (int)RibbonStyle;
+            Settings.Default.EnableFirstChanceException = EnableFirstChanceException;
             Settings.Default.Save();
 
         }
@@ -296,12 +363,16 @@ namespace Analogy
         {
             AnalogyOpenedFiles += 1;
             if (!RecentFiles.Contains((iD, file)))
+            {
                 RecentFiles.Insert(0, (iD, file));
+            }
         }
         public void AddToRecentFolders(Guid iD, string path)
         {
             if (!RecentFolders.Contains((iD, path)))
+            {
                 RecentFolders.Insert(0, (iD, path));
+            }
         }
         public void ClearStatistics()
         {
@@ -347,7 +418,10 @@ namespace Analogy
         public void UpdateOrder(List<Guid> order)
         {
             if (FactoriesOrder.SequenceEqual(order))
+            {
                 return;
+            }
+
             FactoriesOrder = order;
             OnFactoryOrderChanged?.Invoke(this, new EventArgs());
         }
@@ -362,14 +436,20 @@ namespace Analogy
             if (include)
             {
                 if (LastSearchesInclude.Contains(text, StringComparison.InvariantCultureIgnoreCase))
+                {
                     return false;
+                }
+
                 LastSearchesInclude.Add(text);
                 return true;
             }
             else
             {
                 if (LastSearchesExclude.Contains(text, StringComparison.InvariantCultureIgnoreCase))
+                {
                     return false;
+                }
+
                 LastSearchesExclude.Add(text);
                 return true;
             }
@@ -509,18 +589,24 @@ namespace Analogy
         public void RemoveHighlight(PreDefineHighlight highlight)
         {
             if (Highlights.Contains(highlight))
+            {
                 Highlights.Remove(highlight);
+            }
         }
 
         public void RemoveFilter(PreDefineFilter filter)
         {
             if (Filters.Contains(filter))
+            {
                 Filters.Remove(filter);
+            }
         }
         public void RemoveAlert(PreDefineAlert alert)
         {
             if (Alerts.Contains(alert))
+            {
                 Alerts.Remove(alert);
+            }
         }
     }
     [Serializable]

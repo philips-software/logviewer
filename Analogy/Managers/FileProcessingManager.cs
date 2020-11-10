@@ -21,7 +21,10 @@ namespace Analogy
 
         public void AddProcessingFile(string filename)
         {
-            if (!Processing.Contains(filename, StringComparer.OrdinalIgnoreCase)) Processing.Add(filename);
+            if (!Processing.Contains(filename, StringComparer.OrdinalIgnoreCase))
+            {
+                Processing.Add(filename);
+            }
         }
 
         public void DoneProcessingFile(List<AnalogyLogMessage> messages, string filename)
@@ -29,12 +32,21 @@ namespace Analogy
             lock (_lockObject)
             {
                 if (Processing.Contains(filename))
+                {
                     Processing.Remove(filename);
+                }
+
                 if (ProcessedFileNames.Contains(filename))
+                {
                     ProcessedFileNames.Remove(filename);
+                }
+
                 ProcessedFileNames.Add(filename);
                 if (Messages.ContainsKey(filename))
+                {
                     Messages.Remove(filename);
+                }
+
                 Messages.Add(filename, messages);
 
             }

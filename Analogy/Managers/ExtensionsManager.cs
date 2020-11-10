@@ -35,7 +35,11 @@ namespace Analogy
 
         public void RegisterExtension(IAnalogyExtension extension)
         {
-            if (extension == null) return;
+            if (extension == null)
+            {
+                return;
+            }
+
             registeredExtensions.Add(extension);
             if (extension.ExtensionType == AnalogyExtensionType.InPlace)
             {

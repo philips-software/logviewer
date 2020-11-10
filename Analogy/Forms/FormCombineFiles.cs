@@ -1,7 +1,7 @@
 ﻿using Analogy.Interfaces;
 using DevExpress.XtraEditors;
 
-namespace Analogy
+namespace Analogy.Forms
 {
     public partial class FormCombineFiles : XtraForm
     {

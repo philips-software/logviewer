@@ -1,5 +1,4 @@
 ﻿using Analogy.Interfaces;
-using Analogy.Types;
 using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
@@ -8,6 +7,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Analogy.DataTypes;
+using Analogy.Forms;
 
 namespace Analogy
 {
@@ -34,7 +35,11 @@ namespace Analogy
 
         private void ClientServerUCLog_Load(object sender, EventArgs e)
         {
-            if (DesignMode) return;
+            if (DesignMode)
+            {
+                return;
+            }
+
             lBoxSources.DataSource = ClientServerDataSourceManager.Instance.DataSources;
             ucLogs1.btswitchRefreshLog.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             ucLogs1.btsAutoScrollToBottom.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
@@ -49,7 +54,11 @@ namespace Analogy
         }
         private void PopulateFiles(string folder)
         {
-            if (!Directory.Exists(folder)) return;
+            if (!Directory.Exists(folder))
+            {
+                return;
+            }
+
             lBoxFiles.SelectedIndexChanged -= lBoxFiles_SelectedIndexChanged;
             bool recursiveLoad = checkEditRecursiveLoad.Checked;
             UserSettingsManager.UserSettings.AddToRecentFolders(DataProvider.Id, folder);
@@ -103,7 +112,11 @@ namespace Analogy
             if (lBoxFiles.SelectedItem != null)
             {
                 var filename = (lBoxFiles.SelectedItem as FileInfo)?.FullName;
-                if (filename == null || !File.Exists(filename)) return;
+                if (filename == null || !File.Exists(filename))
+                {
+                    return;
+                }
+
                 try
                 {
                     Process.Start("explorer.exe", "/select, \"" + filename + "\"");
@@ -121,11 +134,16 @@ namespace Analogy
             if (lBoxFiles.SelectedItem != null)
             {
                 var filename = (lBoxFiles.SelectedItem as FileInfo)?.FullName;
-                if (filename == null) return;
+                if (filename == null)
+                {
+                    return;
+                }
+
                 var result = XtraMessageBox.Show($"Are you sure you want to delete {filename}?", "Delete confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (result == DialogResult.Yes)
                 {
                     if (File.Exists(filename))
+                    {
                         try
                         {
                             File.Delete(filename);
@@ -135,13 +153,18 @@ namespace Analogy
                         {
                             MessageBox.Show(exception.Message, @"Error deleting file", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
+                    }
                 }
             }
         }
 
         private void bBtnRefresh_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            if (string.IsNullOrEmpty(SelectedPath) || !Directory.Exists(SelectedPath)) return;
+            if (string.IsNullOrEmpty(SelectedPath) || !Directory.Exists(SelectedPath))
+            {
+                return;
+            }
+
             PopulateFiles(SelectedPath);
         }
     }

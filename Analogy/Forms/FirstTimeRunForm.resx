@@ -117,8 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="memoEdit1.EditValue" xml:space="preserve">
+    <value>Analogy Log Viewer is multi purpose Log Viewer for Windows Operating System.
+
+It supports three modes:
+1. Offline data providers (many parsers of different files types) 
+2. Online / real time providers (like windows event logs or gRPC)
+3. Connect to gRPC Analogy Log Server (https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC) to read messages send by any executable that can use gRPC client.
+
+There are many differerent data providers available for use. A complete list exist at: https://github.com/Analogy-LogViewer/Analogy</value>
+  </data>
   <data name="memoEdit2.EditValue" xml:space="preserve">
-    <value>The different implementation are arranged by top level main menu: each data provider has its own tab in the ribbon (gRPC Receiver, IIS Parser, etc). 
+    <value>The different implementations are arranged by top level main menu: each data provider has its own tab in the ribbon (gRPC Receiver, IIS Parser, etc). 
 First tab is Analogy "format": you can save logs from any provider in a format the application can read Regardless the data provider existance/loaded. 
 
 Ribbon Elements: Each offline Data Provider has the following:
@@ -129,16 +139,6 @@ Ribbon Elements: Each offline Data Provider has the following:
 ● Recent Files: Same as recent folders (number of items is configurable in the user settings)
 ● Known locations: User defined location (local paths or network path where log files are stored)
 ● Bookmarks: shows any saved bookmarks.</value>
-  </data>
-  <data name="memoEdit1.EditValue" xml:space="preserve">
-    <value>Analogy Log Viewer is multi purpose Log Viewer for Windows Operating System.
-
-It supports three modes:
-1. Offline data providers (many parsers of different files types) 
-2. Online / real time providers (like windows event logs or gRPC)
-3. Connect to gRPC Analogy Log Server (https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC) to read messages send by any executable that can use gRPC client.
-
-There are many differerent data providers available for use. A complete list exist at: https://github.com/Analogy-LogViewer/Analogy</value>
   </data>
   <data name="memoEdit3.EditValue" xml:space="preserve">
     <value>Settings Options:

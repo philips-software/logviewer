@@ -532,6 +532,54 @@ For source/modules use , as seperator and - for exclusion. for example: "test, -
         DkE1/yB5PNR9tJv+78GYfwPiYK7C4w/SeAAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="xtraTabPageDebugging.ImageOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+        JhVMD8wrAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAEBAAAAEAGABoAwAAFgAAACgAAAAQAAAAIAAAAAEAGAAAAAAAAAAAAEgAAABIAAAAAAAAAAAA

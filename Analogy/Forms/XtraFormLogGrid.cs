@@ -1,10 +1,10 @@
-﻿using Analogy.DataSources;
+﻿using Analogy.DataProviders;
 using Analogy.Interfaces;
 using Analogy.Managers;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Analogy
+namespace Analogy.Forms
 {
     public partial class XtraFormLogGrid : DevExpress.XtraEditors.XtraForm
     {
@@ -26,13 +26,16 @@ namespace Analogy
         }
 
 
-        public XtraFormLogGrid(List<AnalogyLogMessage> messages, string dataSource, IAnalogyDataProvider dataProvider, IAnalogyOfflineDataProvider fileProvider = null, string processOrModule = null)
+        public XtraFormLogGrid(List<AnalogyLogMessage> messages, string dataSource, IAnalogyDataProvider dataProvider, IAnalogyOfflineDataProvider? fileProvider = null, string? processOrModule = null)
         {
             InitializeComponent();
             _messages = messages;
             _dataSource = dataSource;
             if (!string.IsNullOrEmpty(processOrModule))
-                ucLogs1.FilterResults(processOrModule);
+            {
+                ucLogs1.FilterResults(processOrModule!);
+            }
+
             ucLogs1.SetFileDataSource(dataProvider, fileProvider);
 
 
@@ -41,9 +44,19 @@ namespace Analogy
         private void XtraFormLogGrid_Load(object sender, System.EventArgs e)
         {
             Icon = UserSettingsManager.UserSettings.GetIcon();
-            if (DesignMode) return;
-            if (_messages == null || !_messages.Any()) return;
-            ucLogs1.AppendMessages(_messages, _dataSource);
+            if (DesignMode)
+            {
+                return;
+            }
+
+            if (!_messages.Any())
+            {
+                return;
+            }
+
+            {
+                ucLogs1.AppendMessages(_messages, _dataSource);
+            }
         }
 
         public void AppendMessage(AnalogyLogMessage message, string dataSource) =>

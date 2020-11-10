@@ -1,10 +1,10 @@
-﻿using Analogy.Interfaces;
-using DevExpress.XtraEditors;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Analogy.Interfaces;
+using DevExpress.XtraEditors;
 
-namespace Analogy
+namespace Analogy.Forms
 {
     public partial class AnalogyAddCommentsToMessage : XtraForm
     {
@@ -48,7 +48,10 @@ namespace Analogy
             if (!string.IsNullOrEmpty(memoNoteKey.Text))
             {
                 if( Message.AdditionalInformation==null)
+                {
                     Message.AdditionalInformation=new Dictionary<string, string>();
+                }
+
                 Message.AdditionalInformation[memoNoteKey.Text] = memoText.Text;
             }
         }

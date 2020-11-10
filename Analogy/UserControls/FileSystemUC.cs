@@ -1,11 +1,11 @@
 ﻿using Analogy.Interfaces;
-using Analogy.Types;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Analogy.DataTypes;
 
 namespace Analogy
 {
@@ -64,7 +64,11 @@ namespace Analogy
             if (lBoxFiles.SelectedItem != null)
             {
                 var filename = (lBoxFiles.SelectedItem as FileInfo)?.FullName;
-                if (filename == null || !File.Exists(filename)) return;
+                if (filename == null || !File.Exists(filename))
+                {
+                    return;
+                }
+
                 Process.Start("explorer.exe", "/select, \"" + filename + "\"");
             }
         }

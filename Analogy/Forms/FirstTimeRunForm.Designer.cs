@@ -99,7 +99,7 @@
             this.tpWelcome.Controls.Add(this.memoEdit1);
             this.tpWelcome.Controls.Add(this.pictureEdit1);
             this.tpWelcome.Name = "tpWelcome";
-            this.tpWelcome.Size = new System.Drawing.Size(1114, 362);
+            this.tpWelcome.Size = new System.Drawing.Size(1114, 389);
             this.tpWelcome.Text = "Welcome";
             // 
             // btnNext1
@@ -132,7 +132,7 @@
             this.pictureEdit1.Name = "pictureEdit1";
             this.pictureEdit1.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
             this.pictureEdit1.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
-            this.pictureEdit1.Size = new System.Drawing.Size(389, 362);
+            this.pictureEdit1.Size = new System.Drawing.Size(389, 389);
             this.pictureEdit1.TabIndex = 0;
             // 
             // tpRibbon
@@ -194,7 +194,7 @@
             this.tpSettings.Controls.Add(this.memoEdit3);
             this.tpSettings.Controls.Add(this.pictureEdit3);
             this.tpSettings.Name = "tpSettings";
-            this.tpSettings.Size = new System.Drawing.Size(1114, 362);
+            this.tpSettings.Size = new System.Drawing.Size(1114, 389);
             this.tpSettings.Text = "Settings";
             // 
             // btnBack2
@@ -237,7 +237,7 @@
             this.pictureEdit3.Location = new System.Drawing.Point(0, 0);
             this.pictureEdit3.Name = "pictureEdit3";
             this.pictureEdit3.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
-            this.pictureEdit3.Size = new System.Drawing.Size(414, 362);
+            this.pictureEdit3.Size = new System.Drawing.Size(414, 389);
             this.pictureEdit3.TabIndex = 5;
             // 
             // tpDataProviders
@@ -246,7 +246,7 @@
             this.tpDataProviders.Controls.Add(this.panelControl1);
             this.tpDataProviders.Controls.Add(this.lblDataProviders);
             this.tpDataProviders.Name = "tpDataProviders";
-            this.tpDataProviders.Size = new System.Drawing.Size(1114, 362);
+            this.tpDataProviders.Size = new System.Drawing.Size(1114, 389);
             this.tpDataProviders.Text = "Data Providers";
             // 
             // chkLstDataProviderStatus
@@ -255,7 +255,7 @@
             this.chkLstDataProviderStatus.ItemHeight = 62;
             this.chkLstDataProviderStatus.Location = new System.Drawing.Point(0, 36);
             this.chkLstDataProviderStatus.Name = "chkLstDataProviderStatus";
-            this.chkLstDataProviderStatus.Size = new System.Drawing.Size(1114, 284);
+            this.chkLstDataProviderStatus.Size = new System.Drawing.Size(1114, 311);
             this.chkLstDataProviderStatus.TabIndex = 14;
             this.chkLstDataProviderStatus.ItemCheck += new DevExpress.XtraEditors.Controls.ItemCheckEventHandler(this.chkLstDataProviderStatus_ItemCheck);
             // 
@@ -264,7 +264,7 @@
             this.panelControl1.Controls.Add(this.btnBack3);
             this.panelControl1.Controls.Add(this.btnNext4);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl1.Location = new System.Drawing.Point(0, 320);
+            this.panelControl1.Location = new System.Drawing.Point(0, 347);
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(1114, 42);
             this.panelControl1.TabIndex = 15;
@@ -315,7 +315,7 @@
             this.tpFinish.Controls.Add(this.labelControl1);
             this.tpFinish.Controls.Add(this.hyperLinkEdit1);
             this.tpFinish.Name = "tpFinish";
-            this.tpFinish.Size = new System.Drawing.Size(1114, 362);
+            this.tpFinish.Size = new System.Drawing.Size(1114, 389);
             this.tpFinish.Text = "Done";
             // 
             // labelControl3

@@ -33,6 +33,7 @@
             this.sbtnCheck = new DevExpress.XtraEditors.SimpleButton();
             this.richTextBoxRelease = new System.Windows.Forms.RichTextBox();
             this.hyperLinkEditLatest = new DevExpress.XtraEditors.HyperLinkEdit();
+            this.sbtnUpdateNow = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.hyperLinkEditLatest.Properties)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,7 +73,7 @@
             this.sbtnCheck.Size = new System.Drawing.Size(127, 26);
             this.sbtnCheck.TabIndex = 1;
             this.sbtnCheck.Text = "Check Now";
-            this.sbtnCheck.Click += new System.EventHandler(this.sbtnCheck_Click);
+            this.sbtnCheck.Click += new System.EventHandler(this.sbtnCheckUpdate_Click);
             // 
             // richTextBoxRelease
             // 
@@ -96,11 +97,23 @@
             this.hyperLinkEditLatest.Size = new System.Drawing.Size(955, 22);
             this.hyperLinkEditLatest.TabIndex = 4;
             // 
+            // sbtnUpdateNow
+            // 
+            this.sbtnUpdateNow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.sbtnUpdateNow.Location = new System.Drawing.Point(840, 50);
+            this.sbtnUpdateNow.Name = "sbtnUpdateNow";
+            this.sbtnUpdateNow.Size = new System.Drawing.Size(127, 26);
+            this.sbtnUpdateNow.TabIndex = 5;
+            this.sbtnUpdateNow.Text = "Update Now";
+            this.sbtnUpdateNow.Visible = false;
+            this.sbtnUpdateNow.Click += new System.EventHandler(this.sbtnUpdateNow_Click);
+            // 
             // UpdateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(980, 425);
+            this.Controls.Add(this.sbtnUpdateNow);
             this.Controls.Add(this.hyperLinkEditLatest);
             this.Controls.Add(this.richTextBoxRelease);
             this.Controls.Add(this.sbtnCheck);
@@ -122,5 +135,6 @@
         private DevExpress.XtraEditors.SimpleButton sbtnCheck;
         private System.Windows.Forms.RichTextBox richTextBoxRelease;
         private DevExpress.XtraEditors.HyperLinkEdit hyperLinkEditLatest;
+        private DevExpress.XtraEditors.SimpleButton sbtnUpdateNow;
     }
 }

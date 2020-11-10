@@ -363,3 +363,4 @@ MigrationBackup/
 *.bak
 _ReSharper.Caches
 /Analogy/obj
+/Analogy/Properties/launchSettings.json

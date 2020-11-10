@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
+using Analogy.DataTypes;
+using Analogy.Forms;
 using Analogy.Interfaces;
 using Analogy.Managers;
 
@@ -27,7 +29,11 @@ namespace Analogy
 
         private void WindowsEventLog_Load(object sender, EventArgs e)
         {
-            if (DesignMode) return;
+            if (DesignMode)
+            {
+                return;
+            }
+
             ucLogs1.btswitchRefreshLog.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             ucLogs1.btsAutoScrollToBottom.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             //SetupLogs();
@@ -89,7 +95,11 @@ namespace Analogy
         private void lBoxSources_SelectedIndexChanged(object sender, EventArgs e)
         {
             Counter item = lBoxSources.SelectedItem as Counter;
-            if (item == null) return;
+            if (item == null)
+            {
+                return;
+            }
+
             string module = item.Name == "All" ? string.Empty : item.Name;
             ucLogs1.FilterResults(module);
         }

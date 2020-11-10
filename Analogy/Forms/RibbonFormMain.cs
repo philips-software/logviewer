@@ -1,4 +1,4 @@
-﻿namespace Analogy
+﻿namespace Analogy.Forms
 {
     public partial class RibbonFormMain : DevExpress.XtraBars.Ribbon.RibbonForm
     {

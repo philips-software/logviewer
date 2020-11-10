@@ -11,6 +11,22 @@ namespace Analogy
         {
             return new List<AnalogyChangeLog>
             {
+                new AnalogyChangeLog("V4.2.14 - [Updater] show download progress #619",AnalogChangeLogType.Improvement,"Lior Banai",new DateTime(2020,10,30)),
+                new AnalogyChangeLog("V4.2.13 - App hangs when trying to load file in use #636",AnalogChangeLogType.Bug,"Lior Banai",new DateTime(2020,10,27)),
+                new AnalogyChangeLog("V4.2.12 - Add support for loading data providers from sub folders #645",AnalogChangeLogType.Improvement,"Lior Banai",new DateTime(2020,10,27)),
+                new AnalogyChangeLog("V4.2.12 - [Feature] Add data provider update mechanism #596",AnalogChangeLogType.Feature,"Lior Banai",new DateTime(2020,10,26)),
+                new AnalogyChangeLog("V4.2.12 - [Feature] Add Update to Analogy #595",AnalogChangeLogType.Feature,"Lior Banai",new DateTime(2020,10,26)),
+                new AnalogyChangeLog("V4.2.12 - [Feature] Add Data providers download/install page #202",AnalogChangeLogType.Feature,"Lior Banai",new DateTime(2020,10,26)),
+                new AnalogyChangeLog("V4.2.11 - 4.2.10 UnauthorizedAccessException when closing the app #568",AnalogChangeLogType.Bug,"Lior Banai",new DateTime(2020,10,19)),
+                new AnalogyChangeLog("V4.2.10 - [Debugging] Add toggle for FirstChanceException #567",AnalogChangeLogType.Improvement,"Lior Banai",new DateTime(2020,10,17)),
+                new AnalogyChangeLog("V4.2.10 - Remove focus on mouse over for filtering text boxes #566",AnalogChangeLogType.Improvement,"Lior Banai",new DateTime(2020,10,17)),
+                new AnalogyChangeLog("V4.2.10 - [UI] Add Open folder dialog button #527",AnalogChangeLogType.Improvement,"Lior Banai",new DateTime(2020,10,10)),
+                new AnalogyChangeLog("V4.2.10 - Enable Nullable annotations #559",AnalogChangeLogType.Improvement,"Lior Banai",new DateTime(2020,10,10)),
+                new AnalogyChangeLog("V4.2.10 - The OK button on the 'Data Source Information' dialog doesn't seem to do anything. #546",AnalogChangeLogType.Bug,"Lior Banai",new DateTime(2020,10,09)),
+                new AnalogyChangeLog("V4.2.10 - [UI] Columns header context menu is hidden being the standard menu #545",AnalogChangeLogType.Bug,"Lior Banai",new DateTime(2020,10,08)),
+                new AnalogyChangeLog("V4.2.10 - [Extendability] Allows shuffling of provider between factories #534",AnalogChangeLogType.Improvement,"Lior Banai",new DateTime(2020,10,06)),
+                new AnalogyChangeLog("V4.2.10 - [UI] add setting to toggle compact ribbon view #520",AnalogChangeLogType.Improvement,"Lior Banai",new DateTime(2020,10,02)),
+                new AnalogyChangeLog("V4.2.9 - [UI] Analogy Save message still says XML format while it has been deprecated and replaced by Json #514",AnalogChangeLogType.Bug,"Lior Banai",new DateTime(2020,09,24)),
                 new AnalogyChangeLog("V4.2.9 - [Usability] Add global font size settings for high resolution monitors #501",AnalogChangeLogType.Improvement,"Lior Banai",new DateTime(2020,09,20)),
                 new AnalogyChangeLog("V4.2.9 - [feature] Add View as json tree on right click on log message #504",AnalogChangeLogType.Improvement,"Lior Banai",new DateTime(2020,09,19)),
                 new AnalogyChangeLog("V4.2.8 - [Context menu] limit number of characters showed in the messages context menu. #505",AnalogChangeLogType.Improvement,"Lior Banai",new DateTime(2020,09,16)),

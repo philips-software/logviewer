@@ -5,7 +5,6 @@ using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -38,7 +37,22 @@ namespace Analogy
             WindowsFormsSettings.DefaultMenuFont = Settings.FontSettings.MenuFont;
             Application.ThreadException += Application_ThreadException;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
+            if (Settings.EnableFirstChanceException)
+            {
+                AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
+            }
+
+            Settings.OnEnableFirstChanceExceptionChanged += (s, e) =>
+            {
+                if (e)
+                {
+                    AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
+                }
+                else
+                {
+                    AppDomain.CurrentDomain.FirstChanceException -= CurrentDomain_FirstChanceException;
+                }
+            };
             Application.SetCompatibleTextRenderingDefault(false);
             Application.EnableVisualStyles();
 #if NETCOREAPP3_1
@@ -52,7 +66,9 @@ namespace Analogy
                     UserLookAndFeel.Default.SetSkinStyle(Settings.ApplicationSkinName, Settings.ApplicationSvgPaletteName);
                 }
                 else
+                {
                     UserLookAndFeel.Default.SetSkinStyle(Settings.ApplicationSkinName);
+                }
 
                 UserLookAndFeel.Default.Style = Settings.ApplicationStyle;
             }
@@ -79,7 +95,9 @@ namespace Analogy
                     }
                 }
                 else
+                {
                     XtraMessageBox.Show("Single instance is on. Exiting this instance", "Analogy");
+                }
 
                 return;
             }
@@ -151,13 +169,17 @@ namespace Analogy
         {
             // missing resources are... missing
             if (args.Name.Contains(".resources"))
+            {
                 return null;
+            }
 
             // check for assemblies already loaded
             Assembly assembly = AppDomain.CurrentDomain.GetAssemblies()
                 .FirstOrDefault(a => a.GetName().Name == args.Name);
             if (assembly != null)
+            {
                 return assembly;
+            }
 
             // Try to load by filename - split out the filename of the full assembly name
             // and append the base path of the original assembly (ie. look in the same dir)
@@ -179,7 +201,10 @@ namespace Analogy
                     {
                         string finalPath = Path.GetDirectoryName(asmFile);
                         if (!string.IsNullOrEmpty(finalPath) && paths.Count == 1)
+                        {
                             Environment.CurrentDirectory = finalPath;
+                        }
+
                         return Assembly.LoadFrom(asmFile);
                     }
                     catch
@@ -205,15 +230,18 @@ namespace Analogy
             {
                 var file = Path.GetFileName(fullFile);
                 if (file.Equals(filename, StringComparison.InvariantCultureIgnoreCase))
+                {
                     return fullFile;
-
+                }
             }
 
             foreach (var dir in Directory.GetDirectories(path))
             {
                 var file = FindFileInPath(filename, dir);
                 if (!string.IsNullOrEmpty(file))
+                {
                     return file;
+                }
             }
 
             return null;

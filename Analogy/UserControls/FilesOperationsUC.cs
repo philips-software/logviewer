@@ -54,7 +54,11 @@ namespace Analogy
                 TextMessages.Add(status);
                 if (DateTime.Now.Subtract(LastReportUpdate).TotalMilliseconds > refreshDelay || (value.Processed == value.Total))
                 {
-                    if (IsDisposed) return;
+                    if (IsDisposed)
+                    {
+                        return;
+                    }
+
                     LastReportUpdate = DateTime.Now;
                     richTextBox1.Text += status + Environment.NewLine;
                     richTextBox1.SelectionStart = richTextBox1.Text.Length;
@@ -68,7 +72,11 @@ namespace Analogy
             {
                 //if (DateTime.Now.Subtract(LastReportUpdate).TotalMilliseconds > refreshDelay)
                 //{
-                if (IsDisposed) return;
+                if (IsDisposed)
+                {
+                    return;
+                }
+
                 //LastReportUpdate = DateTime.Now;
                 richTextBox1.Text += text + Environment.NewLine;
                 richTextBox1.SelectionStart = richTextBox1.Text.Length;
@@ -90,7 +98,11 @@ namespace Analogy
             int processed = 0;
             foreach (string filename in FileNames)
             {
-                if (Manager.AlreadyProcessed(Path.GetFileName(filename))) continue;
+                if (Manager.AlreadyProcessed(Path.GetFileName(filename)))
+                {
+                    continue;
+                }
+
                 FileProcessor fp = new FileProcessor(this);
                 await fp.Process(DataProvider, filename, cancellationTokenSource.Token);
                 processed += 1;

@@ -17,8 +17,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Analogy.DataTypes;
 using Analogy.Interfaces.DataTypes;
-using Analogy.Types;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 
@@ -74,6 +74,7 @@ namespace Analogy
         public static List<string> LogLevels { get; } = Enum.GetValues(typeof(AnalogyLogLevel)).Cast<AnalogyLogLevel>().Select(e => e.ToString()).ToList();
 
 
+
         //
         /// <summary>
         /// 
@@ -88,7 +89,10 @@ namespace Analogy
             try
             {
                 if (!string.IsNullOrEmpty(directoryName) && !(Directory.Exists(directoryName)))
+                {
                     Directory.CreateDirectory(directoryName);
+                }
+
                 using (Stream myWriter = File.Open(filename, FileMode.Create, FileAccess.ReadWrite))
                 {
                     formatter.Serialize(myWriter, item);
@@ -110,6 +114,7 @@ namespace Analogy
         {
             var formatter = new BinaryFormatter();
             if (File.Exists(filename))
+            {
                 try
                 {
                     using (Stream myReader = File.Open(filename, FileMode.Open, FileAccess.Read))
@@ -121,6 +126,7 @@ namespace Analogy
                 {
                     throw new Exception("GeneralDataUtils: Error in DeSerializeBinaryFile", ex);
                 }
+            }
 
             throw new FileNotFoundException("GeneralDataUtils: File does not exist: " + filename, filename);
         }
@@ -172,7 +178,9 @@ namespace Analogy
                 SetLookAndFellSkin(feel.LookAndFeel, skinName);
             }
             foreach (Control c in control.Controls)
+            {
                 SetSkin(c, skinName);
+            }
         }
         private static void SetLookAndFellSkin(UserLookAndFeel lookAndFeel, string skinName)
         {
@@ -247,38 +255,38 @@ namespace Analogy
             Regex regex = new Regex(regexString, RegexOptions.Compiled | RegexOptions.IgnoreCase);
             return regex;
         }
-        public static async Task<(bool newData, T result)> GetAsync<T>(string uri, string token, DateTime lastModified)
-        {
-            try
-            {
-                Uri myUri = new Uri(uri);
-                HttpWebRequest myHttpWebRequest = (HttpWebRequest)WebRequest.Create(myUri);
-                myHttpWebRequest.Accept = "application/json";
-                myHttpWebRequest.UserAgent = "Analogy";
-                if (!string.IsNullOrEmpty(token))
-                    myHttpWebRequest.Headers.Add(HttpRequestHeader.Authorization, $"Token {token}");
+        //public static async Task<(bool newData, T result)> GetAsync<T>(string uri, string token, DateTime lastModified)
+        //{
+        //    try
+        //    {
+        //        Uri myUri = new Uri(uri);
+        //        HttpWebRequest myHttpWebRequest = (HttpWebRequest)WebRequest.Create(myUri);
+        //        myHttpWebRequest.Accept = "application/json";
+        //        myHttpWebRequest.UserAgent = "Analogy";
+        //        if (!string.IsNullOrEmpty(token))
+        //            myHttpWebRequest.Headers.Add(HttpRequestHeader.Authorization, $"Token {token}");
 
-                myHttpWebRequest.IfModifiedSince = lastModified;
+        //        myHttpWebRequest.IfModifiedSince = lastModified;
 
-                HttpWebResponse myHttpWebResponse = (HttpWebResponse)await myHttpWebRequest.GetResponseAsync();
-                if (myHttpWebResponse.StatusCode == HttpStatusCode.NotModified)
-                    return (false, default);
+        //        HttpWebResponse myHttpWebResponse = (HttpWebResponse)await myHttpWebRequest.GetResponseAsync();
+        //        if (myHttpWebResponse.StatusCode == HttpStatusCode.NotModified)
+        //            return (false, default)!;
 
-                using (var reader = new System.IO.StreamReader(myHttpWebResponse.GetResponseStream()))
-                {
-                    string responseText = await reader.ReadToEndAsync();
-                    return (true, JsonConvert.DeserializeObject<T>(responseText));
-                }
-            }
-            catch (WebException e) when (((HttpWebResponse)e.Response).StatusCode == HttpStatusCode.NotModified)
-            {
-                return (false, default);
-            }
-            catch (Exception)
-            {
-                return (false, default);
-            }
-        }
+        //        using (var reader = new System.IO.StreamReader(myHttpWebResponse.GetResponseStream()))
+        //        {
+        //            string responseText = await reader.ReadToEndAsync();
+        //            return (true, JsonConvert.DeserializeObject<T>(responseText));
+        //        }
+        //    }
+        //    catch (WebException e) when (((HttpWebResponse)e.Response).StatusCode == HttpStatusCode.NotModified)
+        //    {
+        //        return (false, default)!;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return (false, default)!;
+        //    }
+        //}
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static DataRow CreateRow(DataTable table, AnalogyLogMessage message, string dataSource, bool checkAdditionalInformation)
@@ -303,7 +311,9 @@ namespace Analogy
                 foreach (KeyValuePair<string, string> info in message.AdditionalInformation)
                 {
                     if (dtr.Table.Columns.Contains(info.Key))
+                    {
                         dtr[info.Key] = info.Value;
+                    }
                     else
                     {
                         AnalogyLogger.Instance.LogError("",
@@ -341,7 +351,7 @@ namespace Analogy
                 case LogLevelSelectionType.Multiple:
                     chkLstLogLevel.CheckMode = CheckMode.Multiple;
                     chkLstLogLevel.CheckStyle = CheckStyles.Standard;
-                    chkLstLogLevel.Items.AddRange(LogLevels.Select(l => new CheckedListBoxItem(l, true)).ToArray());
+                    chkLstLogLevel.Items.AddRange(LogLevels.Select(l => new CheckedListBoxItem(l, false)).ToArray());
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -362,6 +372,13 @@ namespace Analogy
             {
                 AnalogyLogger.Instance.LogException($"Error: {exception.Message}",exception, "");
             }
+        }
+     
+        public static string CurrentDirectory()
+        {
+            string location = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            var directory = System.IO.Path.GetDirectoryName(location);
+            return directory;
         }
     }
     

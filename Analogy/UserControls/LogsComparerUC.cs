@@ -11,8 +11,8 @@ namespace Analogy.Tools
     public partial class LogsComparerUC : DevExpress.XtraEditors.XtraUserControl
     {
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-        private FileComparerProcessor LeftFile;
-        private FileComparerProcessor RightFile;
+        private FileComparerProcessor? LeftFile { get; set; }
+        private FileComparerProcessor? RightFile { get; set; }
         private IAnalogyOfflineDataProvider OfflineAnalogy { get; set; }
         public LogsComparerUC()
         {
@@ -134,7 +134,11 @@ namespace Analogy.Tools
 
         private void CompareIfBothSideAreLoaded()
         {
-            if (LeftFile == null | RightFile == null) return;
+            if (LeftFile == null || RightFile == null)
+            {
+                return;
+            }
+
             if (LeftFile.IsLoaded && RightFile.IsLoaded)
             {
                 Compare();

@@ -1,10 +1,10 @@
-﻿using DevExpress.XtraEditors;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
+using DevExpress.XtraEditors;
 
-namespace Analogy
+namespace Analogy.Forms
 {
     public partial class ProcessNameAndID : XtraForm
     {

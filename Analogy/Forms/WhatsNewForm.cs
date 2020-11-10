@@ -1,13 +1,7 @@
-﻿using DevExpress.XtraBars;
+﻿using Analogy.WhatIsNew;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using Analogy.WhatIsNew;
 
 namespace Analogy.Forms
 {
@@ -20,10 +14,13 @@ namespace Analogy.Forms
 
         private void WhatsNewForm_Load(object sender, EventArgs e)
         {
-            if (DesignMode) return;
+            if (DesignMode)
+            {
+                return;
+            }
+
             Icon = UserSettingsManager.UserSettings.GetIcon();
-            WhatIsNew4_2_8 uc = new WhatIsNew4_2_8();
-            uc.Name = "V4.2.8";
+            WhatIsNew4_3_0 uc = new WhatIsNew4_3_0 { Name = "V4.3.0"};
             fluentDesignFormContainer1.Controls.Add(uc);
             uc.Dock = DockStyle.Fill;
             uc.BringToFront();
@@ -34,17 +31,70 @@ namespace Analogy.Forms
         {
             if (!fluentDesignFormContainer1.Controls.ContainsKey("V4.2.8"))
             {
-                WhatIsNew4_2_8 uc= new WhatIsNew4_2_8();
+                WhatIsNew4_2_8 uc = new WhatIsNew4_2_8();
                 uc.Name = "V4.2.8";
                 fluentDesignFormContainer1.Controls.Add(uc);
                 uc.Dock = DockStyle.Fill;
                 uc.BringToFront();
             }
-            else
+            SetActive("V4.2.8");
+
+        }
+        private void e429_Click(object sender, EventArgs e)
+        {
+            if (!fluentDesignFormContainer1.Controls.ContainsKey("V4.2.9"))
             {
-                fluentDesignFormContainer1.Controls["V4.2.8"].BringToFront();
+                WhatIsNew4_2_9 uc = new WhatIsNew4_2_9();
+                uc.Name = "V4.2.9";
+                fluentDesignFormContainer1.Controls.Add(uc);
+                uc.Dock = DockStyle.Fill;
+                uc.BringToFront();
+            }
+            SetActive("V4.2.9");
+
+        }
+
+        private void SetActive(string control)
+        {
+            foreach (UserControl others in fluentDesignFormContainer1.Controls)
+            {
+                if (others.Name == control)
+                {
+                    continue;
+                }
+
+                others.SendToBack();
             }
 
+            fluentDesignFormContainer1.Controls[control].BringToFront();
+
+        }
+
+        private void e4210_Click(object sender, EventArgs e)
+        {
+            if (!fluentDesignFormContainer1.Controls.ContainsKey("V4.2.10"))
+            {
+                WhatIsNew4_2_10 uc = new WhatIsNew4_2_10();
+                uc.Name = "V4.2.10";
+                fluentDesignFormContainer1.Controls.Add(uc);
+                uc.Dock = DockStyle.Fill;
+                uc.BringToFront();
+            }
+            SetActive("V4.2.10");
+
+        }
+
+        private void e430_Click(object sender, EventArgs e)
+        {
+            if (!fluentDesignFormContainer1.Controls.ContainsKey("V4.3.0"))
+            {
+                WhatIsNew4_3_0 uc = new WhatIsNew4_3_0();
+                uc.Name = "V4.3.0";
+                fluentDesignFormContainer1.Controls.Add(uc);
+                uc.Dock = DockStyle.Fill;
+                uc.BringToFront();
+            }
+            SetActive("V4.3.0");
         }
     }
 }

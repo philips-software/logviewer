@@ -1,4 +1,6 @@
-﻿namespace Analogy.Tools
+﻿using Analogy.Tools;
+
+namespace Analogy.Forms
 {
     partial class FileComparerForm
     {

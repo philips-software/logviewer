@@ -155,13 +155,25 @@ namespace Analogy.Managers
 
         private async void WatchFile_Changed(object sender, FileSystemEventArgs e)
         {
-            if (_readingInprogress) return;
+            if (_readingInprogress)
+            {
+                return;
+            }
+
             FileInfo f = new FileInfo(e.FullPath);
-            if (lastWriteTime == f.LastWriteTime) return;
+            if (lastWriteTime == f.LastWriteTime)
+            {
+                return;
+            }
+
             lastWriteTime = f.LastWriteTime;
             lock (_sync)
             {
-                if (_readingInprogress) return;
+                if (_readingInprogress)
+                {
+                    return;
+                }
+
                 _watchFile.EnableRaisingEvents = false;
                 _readingInprogress = true;
             }

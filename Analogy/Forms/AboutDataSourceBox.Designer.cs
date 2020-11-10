@@ -1,4 +1,4 @@
-﻿namespace Analogy
+﻿namespace Analogy.Forms
 {
     partial class AboutDataSourceBox
     {
@@ -33,14 +33,15 @@
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.btnOK = new DevExpress.XtraEditors.SimpleButton();
+            this.meDescription = new DevExpress.XtraEditors.MemoEdit();
             this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
             this.xtraTabPage3 = new DevExpress.XtraTab.XtraTabPage();
             this.meChangeLog = new DevExpress.XtraEditors.MemoEdit();
             this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
             this.meContributions = new DevExpress.XtraEditors.MemoEdit();
-            this.meDescription = new DevExpress.XtraEditors.MemoEdit();
             this.tableLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.meDescription.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
             this.xtraTabControl1.SuspendLayout();
             this.xtraTabPage1.SuspendLayout();
@@ -48,7 +49,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.meChangeLog.Properties)).BeginInit();
             this.xtraTabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.meContributions.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.meDescription.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel
@@ -126,12 +126,22 @@
             // 
             // btnOK
             // 
+            this.btnOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnOK.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnOK.Location = new System.Drawing.Point(975, 367);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(64, 39);
             this.btnOK.TabIndex = 24;
             this.btnOK.Text = "OK";
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            // 
+            // meDescription
+            // 
+            this.meDescription.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.meDescription.Location = new System.Drawing.Point(3, 163);
+            this.meDescription.Name = "meDescription";
+            this.meDescription.Size = new System.Drawing.Size(1036, 198);
+            this.meDescription.TabIndex = 25;
             // 
             // xtraTabControl1
             // 
@@ -186,19 +196,12 @@
             this.meContributions.Size = new System.Drawing.Size(1042, 409);
             this.meContributions.TabIndex = 0;
             // 
-            // meDescription
-            // 
-            this.meDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.meDescription.Location = new System.Drawing.Point(3, 163);
-            this.meDescription.Name = "meDescription";
-            this.meDescription.Size = new System.Drawing.Size(1036, 198);
-            this.meDescription.TabIndex = 25;
-            // 
             // AboutDataSourceBox
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnOK;
             this.ClientSize = new System.Drawing.Size(1069, 465);
             this.Controls.Add(this.xtraTabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -213,6 +216,7 @@
             this.Text = "Analogy";
             this.Load += new System.EventHandler(this.AboutDataSourceBox_Load);
             this.tableLayoutPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.meDescription.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
             this.xtraTabControl1.ResumeLayout(false);
             this.xtraTabPage1.ResumeLayout(false);
@@ -220,7 +224,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.meChangeLog.Properties)).EndInit();
             this.xtraTabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.meContributions.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.meDescription.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }

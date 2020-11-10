@@ -1,18 +1,22 @@
 ﻿using Analogy.Interfaces.Factories;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using Analogy.Interfaces;
+using Analogy.Interfaces.DataTypes;
 
 namespace Analogy.Managers
 {
     public class FactoryContainer
     {
+        public bool AssemblyExist => File.Exists(AssemblyFullPath);
         public string AssemblyFullPath { get; }
         public Assembly Assembly { get; }
         public IAnalogyFactory Factory { get; }
         public FactorySettings FactorySetting { get; }
+        public IAnalogyDownloadInformation? DownloadInformation { get; set; }
         public List<IAnalogyCustomActionsFactory> CustomActionsFactories { get; }
         public List<IAnalogyDataProvidersFactory> DataProvidersFactories { get; }
         public List<IAnalogyDataProviderSettings> DataProvidersSettings { get; }
@@ -49,6 +53,8 @@ namespace Analogy.Managers
             ExtensionsFactories.Add(extensionFactory);
         public void AddImages(IAnalogyImages images) => Images.Add(images);
 
+        public void AddDownloadInformation(IAnalogyDownloadInformation downloadInformation)
+            => DownloadInformation = downloadInformation;
         public override string ToString() => $"{nameof(Factory)}: {Factory}, {nameof(Assembly)}: {Assembly}";
 
         public bool ContainsDataProviderOrDataFactory(Guid componentId)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Analogy.DataTypes;
 using Analogy.Interfaces;
 
 namespace Analogy
@@ -123,7 +124,10 @@ namespace Analogy
             }
             List<string> excludedTexts = new List<string>(0);
             if (!string.IsNullOrEmpty(TextExclude))
+            {
                 excludedTexts.Add(EscapeLikeValue(TextExclude.Trim()));
+            }
+
             text = EscapeLikeValue(TextExclude.Trim());
             if (text.Contains("|"))
             {
@@ -137,14 +141,23 @@ namespace Analogy
                 excludedTexts = split.Select(itm => itm.Trim()).ToList();
             }
             if (UserSettingsManager.UserSettings.SearchAlsoInSourceAndModule)
+            {
                 sqlString.Append("((");
+            }
             else
+            {
                 sqlString.Append("(");
+            }
 
             if (orOperationInInclude)
+            {
                 sqlString.Append(string.Join(" Or ", includeTexts.Select(t => $" Text like '%{t}%'")));
+            }
             else
+            {
                 sqlString.Append(string.Join(" and ", includeTexts.Select(t => $" Text like '%{t}%'")));
+            }
+
             sqlString.Append(")");
 
             if (UserSettingsManager.UserSettings.SearchAlsoInSourceAndModule)
@@ -152,16 +165,26 @@ namespace Analogy
                 //also in source
                 sqlString.Append(" or (");
                 if (orOperationInInclude)
+                {
                     sqlString.Append(string.Join(" Or ", includeTexts.Select(t => $" Source like '%{t}%'")));
+                }
                 else
+                {
                     sqlString.Append(string.Join(" And ", includeTexts.Select(t => $" Source like '%{t}%'")));
+                }
+
                 sqlString.Append(")");
                 //also in module
                 sqlString.Append(" or (");
                 if (orOperationInInclude)
+                {
                     sqlString.Append(string.Join(" Or ", includeTexts.Select(t => $" Module like '%{t}%'")));
+                }
                 else
+                {
                     sqlString.Append(string.Join(" And ", includeTexts.Select(t => $" Module like '%{t}%'")));
+                }
+
                 sqlString.Append("))");
             }
 
@@ -169,9 +192,14 @@ namespace Analogy
             {
                 sqlString.Append(" and (");
                 if (orOperationInexclude)
+                {
                     sqlString.Append(string.Join(" and ", excludedTexts.Select(t => $" NOT Text like '%{t}%'")));
+                }
                 else
+                {
                     sqlString.Append(string.Join(" Or ", excludedTexts.Select(t => $" NOT Text like '%{t}%'")));
+                }
+
                 sqlString.Append(")");
             }
 
@@ -200,8 +228,12 @@ namespace Analogy
                 sqlString.Append(string.Join(" Or ", Modules.Select(l => $" Module like '%{EscapeLikeValue(l)}%'")));
                 sqlString.Append(")");
             }
-            string sTemp = string.Join(",", Levels.Select(l => $"'{l}'"));
-            sqlString.Append(" and Level in (" + sTemp + ")");
+
+            if (Levels != null && Levels.Any())
+            {
+                string sTemp = string.Join(",", Levels.Select(l => $"'{l}'"));
+                sqlString.Append(" and Level in (" + sTemp + ")");
+            }
 
             string dateFilter = $" AND (Date >= '{NewerThan}' and Date <= '{OlderThan}')";
 
@@ -240,7 +272,11 @@ namespace Analogy
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Match(string rowLine, string criteria, PreDefinedQueryType type)
         {
-            if (string.IsNullOrEmpty(criteria)) return false;
+            if (string.IsNullOrEmpty(criteria))
+            {
+                return false;
+            }
+
             List<string> includeTexts = new List<string>(1) { criteria.Trim() };
 
             bool orOperationInInclude = false;
@@ -273,6 +309,7 @@ namespace Analogy
                 }
             }
             else
+            {
                 switch (type)
                 {
                     case PreDefinedQueryType.Contains:
@@ -282,10 +319,7 @@ namespace Analogy
                     default:
                         throw new ArgumentOutOfRangeException(nameof(type), type, null);
                 }
-
-
-
-
+            }
         }
 
         public static bool MatchAlert(AnalogyLogMessage analogyLogMessage, PreDefineAlert preDefineAlert)
@@ -302,29 +336,54 @@ namespace Analogy
         {
             bool match = true;
             if (!string.IsNullOrEmpty(TextInclude))
+            {
                 match = message.Text.Contains(TextInclude, StringComparison.InvariantCultureIgnoreCase);
-            if (!match) return false;
+            }
+
+            if (!match)
+            {
+                return false;
+            }
+
             if (!string.IsNullOrEmpty(TextExclude))
+            {
                 match = !message.Text.Contains(TextExclude, StringComparison.InvariantCultureIgnoreCase);
-            if (!match) return false;
+            }
+
+            if (!match)
+            {
+                return false;
+            }
+
             if (Modules != null && Modules.Any())
             {
                 match = Modules.Any(m => message.Module.Contains(m, StringComparison.InvariantCultureIgnoreCase));
             }
 
-            if (!match) return false;
+            if (!match)
+            {
+                return false;
+            }
+
             if (ExcludedModules != null && ExcludedModules.Any())
             {
                 match = ExcludedModules.All(m => !message.Module.Contains(m, StringComparison.InvariantCultureIgnoreCase));
             }
-            if (!match) return false;
+            if (!match)
+            {
+                return false;
+            }
 
             if (Sources != null && Sources.Any())
             {
                 match = Sources.Any(s => message.Source.Contains(s, StringComparison.InvariantCultureIgnoreCase));
             }
 
-            if (!match) return false;
+            if (!match)
+            {
+                return false;
+            }
+
             if (ExcludedSources != null && ExcludedSources.Any())
             {
                 match = ExcludedSources.All(s => !message.Module.Contains(s, StringComparison.InvariantCultureIgnoreCase));

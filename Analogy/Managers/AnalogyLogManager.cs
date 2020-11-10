@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Analogy.Forms;
 
 namespace Analogy.Managers
 {
@@ -104,32 +105,52 @@ namespace Analogy.Managers
 
         public void LogError(string error, string source)
         {
-            if (ignoredMessages.Any(error.Contains)) return;
+            if (ignoredMessages.Any(error.Contains))
+            {
+                return;
+            }
+
             ContentChanged = true;
             messages.Add(new AnalogyLogMessage(error, AnalogyLogLevel.Error, AnalogyLogClass.General, source));
             OnNewError?.Invoke(this, new EventArgs());
         }
         public void LogInformation(string data, string source)
         {
-            if (ignoredMessages.Any(data.Contains)) return;
+            if (ignoredMessages.Any(data.Contains))
+            {
+                return;
+            }
+
             ContentChanged = true;
             messages.Add(new AnalogyLogMessage(data, AnalogyLogLevel.Information, AnalogyLogClass.General, source));
         }
         public void LogWarning(string data, string source)
         {
-            if (ignoredMessages.Any(data.Contains)) return;
+            if (ignoredMessages.Any(data.Contains))
+            {
+                return;
+            }
+
             ContentChanged = true;
             messages.Add(new AnalogyLogMessage(data, AnalogyLogLevel.Warning, AnalogyLogClass.General, source));
         }
         public void LogDebug(string data, string source)
         {
-            if (ignoredMessages.Any(data.Contains)) return;
+            if (ignoredMessages.Any(data.Contains))
+            {
+                return;
+            }
+
             ContentChanged = true;
             messages.Add(new AnalogyLogMessage(data, AnalogyLogLevel.Debug, AnalogyLogClass.General, source));
         }
         public void LogCritical(string data, string source)
         {
-            if (ignoredMessages.Any(data.Contains)) return;
+            if (ignoredMessages.Any(data.Contains))
+            {
+                return;
+            }
+
             ContentChanged = true;
             messages.Add(new AnalogyLogMessage(data, AnalogyLogLevel.Critical, AnalogyLogClass.General, source));
             OnNewError?.Invoke(this, new EventArgs());
@@ -142,7 +163,11 @@ namespace Analogy.Managers
 
         public void LogErrorMessage(AnalogyLogMessage error)
         {
-            if (ignoredMessages.Any(error.Text.Contains)) return;
+            if (ignoredMessages.Any(error.Text.Contains))
+            {
+                return;
+            }
+
             ContentChanged = true;
             messages.Add(error);
             OnNewError?.Invoke(this, new EventArgs());

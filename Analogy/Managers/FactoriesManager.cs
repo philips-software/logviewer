@@ -1,12 +1,11 @@
-﻿using Analogy.DataSources;
+﻿using Analogy.DataProviders;
+using Analogy.DataTypes;
 using Analogy.Interfaces;
 using Analogy.Interfaces.Factories;
 using Analogy.Managers;
-using Analogy.Types;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -71,6 +70,8 @@ namespace Analogy
             ExternalDataProviders result = await ExternalDataProviders.GetExternalDataProviders();
             var factoryContainers = result.Factories.Where(f => !Factories.Contains(f)).ToList();
             Factories.AddRange(factoryContainers);
+            Factories.RemoveAll(f => !f.AssemblyExist);
+
             var dataProviders = factoryContainers.Where(f =>
                     f.FactorySetting.Status != DataProviderFactoryStatus.Disabled)
                 .SelectMany(fc => fc.DataProvidersFactories.SelectMany(d => d.DataProviders)).ToList();
@@ -173,7 +174,9 @@ namespace Analogy
             foreach (var factoryContainer in Factories.Where(f => f.ContainsDataProviderOrDataFactory(componentId)))
             {
                 if (factoryContainer.Factory.LargeImage != null)
+                {
                     return factoryContainer.Factory.LargeImage;
+                }
             }
 
             return null;
@@ -187,7 +190,9 @@ namespace Analogy
             foreach (var factoryContainer in Factories.Where(f => f.ContainsDataProviderOrDataFactory(componentId)))
             {
                 if (factoryContainer.Factory.SmallImage != null)
+                {
                     return factoryContainer.Factory.SmallImage;
+                }
             }
 
             return null;
@@ -200,7 +205,11 @@ namespace Analogy
         {
             foreach (var factory in Factories)
             {
-                if (factory.FactorySetting.Status == DataProviderFactoryStatus.Disabled) continue;
+                if (factory.FactorySetting.Status == DataProviderFactoryStatus.Disabled)
+                {
+                    continue;
+                }
+
                 foreach (var extensionFactory in factory.ExtensionsFactories)
                 {
                     foreach (IAnalogyExtension extension in extensionFactory.Extensions)
