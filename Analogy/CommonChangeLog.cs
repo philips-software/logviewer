@@ -12,6 +12,7 @@ namespace Analogy
             return new List<AnalogyChangeLog>
             {
                 new AnalogyChangeLog("V4.3.1 - Category column is hidden by default. undo it. #659",AnalogChangeLogType.Improvement,"Lior Banai",new DateTime(2020,11,12)),
+                new AnalogyChangeLog("V4.3.1 - [UI] null values are not displayed correctly #654",AnalogChangeLogType.Bug,"Lior Banai",new DateTime(2020,11,08)),
                 new AnalogyChangeLog("V4.3.0 - [Updater] show download progress #619",AnalogChangeLogType.Improvement,"Lior Banai",new DateTime(2020,10,30)),
                 new AnalogyChangeLog("V4.2.13 - App hangs when trying to load file in use #636",AnalogChangeLogType.Bug,"Lior Banai",new DateTime(2020,10,27)),
                 new AnalogyChangeLog("V4.2.12 - Add support for loading data providers from sub folders #645",AnalogChangeLogType.Improvement,"Lior Banai",new DateTime(2020,10,27)),
