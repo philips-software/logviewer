@@ -902,7 +902,6 @@ namespace Analogy
                 gridControlBookmarkedMessages.MainView.RestoreLayoutFromXml(Settings.LogGridFileName);
             }
             btswitchRefreshLog.Checked = true;
-            gridColumnCategory.Visible = false;
             LogGrid.BestFitColumns();
             btswitchMessageDetails.Checked = Settings.ShowMessageDetails;
             splitContainerMain.Collapsed = !Settings.ShowMessageDetails;
