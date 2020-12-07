@@ -514,6 +514,9 @@ namespace Analogy
                     case AnalogyLogLevel.Information:
                         LogLevelColors.Add(level, (Color.White, Color.Black));
                         break;
+                    case AnalogyLogLevel.Event:
+                        LogLevelColors.Add(level, (Color.White, Color.Black));
+                        break;
                     case AnalogyLogLevel.Warning:
                         LogLevelColors.Add(level, (Color.Yellow, Color.Black));
                         break;

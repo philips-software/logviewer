@@ -196,7 +196,11 @@ namespace Analogy
 
             var paths = FactoriesManager.Instance.ProbingPaths.Select(Path.GetDirectoryName).Except(new List<string> { AssemblyLocation }).Distinct()
                 .ToList();
-
+            List<string> stringList = new List<string>()
+            {
+                "..\\system\\"
+            };
+            paths.AddRange(stringList);
             foreach (var path in paths)
             {
                 string asmFile = FindFileInPath(filename, path);

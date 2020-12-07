@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Analogy.Interfaces.DataTypes;
 
 namespace Analogy.DataProviders
 {
@@ -163,6 +164,7 @@ namespace Analogy.DataProviders
         public Image? LargeImage { get; set; } = Resources.ChartsShowLegend_32x32;
         public string Title { get; set; } = "Process Identifier";
         public AnalogyCustomActionType Type { get; } = AnalogyCustomActionType.Global;
+        public AnalogyToolTip? ToolTip { get; set; }
     }
     public class AnalogyUnixTimeAction : IAnalogyCustomAction
     {
@@ -173,7 +175,7 @@ namespace Analogy.DataProviders
 
         public string Title { get; set; } = "Unix Time Converter";
         public AnalogyCustomActionType Type { get; } = AnalogyCustomActionType.Global;
-
+        public AnalogyToolTip? ToolTip { get; set; }
     }
 
     public class AnalogyJsonViewerAction : IAnalogyCustomAction
@@ -185,6 +187,7 @@ namespace Analogy.DataProviders
 
         public string Title { get; set; } = "Json object Visualizer";
         public AnalogyCustomActionType Type { get; } = AnalogyCustomActionType.Global;
+        public AnalogyToolTip? ToolTip { get; set; }
     }
 
     public class AnalogyBuiltInImages : AnalogyImages

@@ -1972,6 +1972,7 @@ namespace Analogy
                     break;
                 case AnalogyLogLevel.Trace:
                 case AnalogyLogLevel.Information:
+                case AnalogyLogLevel.Event:
                     img = imageList.Images[7];
                     break;
                 case AnalogyLogLevel.Verbose:
