@@ -47,7 +47,20 @@ namespace Analogy
             ucLogs1.CancellationTokenSource = cts;
         }
 
-        public void ShowFolderAndFilesPanel(bool on) => spltMain.Panel1Collapsed = !on;
+        public void ShowFolderAndFilesPanel(bool show)
+        {
+            if (show)
+            {
+                dockPanelFolders.ShowSliding();
+                dockPanelFolders.ShowSliding();
+            }
+            else
+            {
+                dockPanelFolders.HideSliding();
+                dockPanelFolders.HideSliding();
+            }
+        }
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             ucLogs1.ProcessCmdKeyFromParent(keyData);
@@ -126,7 +139,7 @@ namespace Analogy
 
             SelectedPath = folder;
             treeList1.SelectionChanged -= TreeList1_SelectionChanged;
-            bool isRoot = Directory.GetLogicalDrives().Any(d => d.Equals(SelectedPath,StringComparison.OrdinalIgnoreCase));
+            bool isRoot = Directory.GetLogicalDrives().Any(d => d.Equals(SelectedPath, StringComparison.OrdinalIgnoreCase));
             bool recursiveLoad = checkEditRecursiveLoad.Checked && !isRoot;
             DirectoryInfo dirInfo = new DirectoryInfo(folder);
             UserSettingsManager.UserSettings.AddToRecentFolders(DataProvider.Id, folder);

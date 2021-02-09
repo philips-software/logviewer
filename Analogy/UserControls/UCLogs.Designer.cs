@@ -2929,6 +2929,7 @@ namespace Analogy
             this.dockPanelFiltering.Options.ShowCloseButton = false;
             this.dockPanelFiltering.OriginalSize = new System.Drawing.Size(200, 210);
             this.dockPanelFiltering.Size = new System.Drawing.Size(1853, 210);
+            this.dockPanelFiltering.TabsPosition = DevExpress.XtraBars.Docking.TabsPosition.Top;
             this.dockPanelFiltering.Text = "Filtering";
             // 
             // controlContainer2
