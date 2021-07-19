@@ -72,7 +72,7 @@
 		<PackageReference Include="Grpc.Core" Version="2.38.1" />
 		<PackageReference Include="Markdig" Version="0.25.0" />
 		<PackageReference Include="Markdig.SyntaxHighlighting" Version="1.1.7" />
-		<PackageReference Include="MessagePack" Version="2.2.85" />
+		<PackageReference Include="MessagePack" Version="2.2.113" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="System.Drawing.Common" Version="5.0.2" />
 		<PackageReference Include="System.IO.Compression" Version="4.3.0" />
